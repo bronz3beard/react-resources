@@ -1,5 +1,8 @@
 import React, { PureComponent } from "react";
 
+//Styles
+import "../Styles/preloader.css";
+
 class Preloader extends PureComponent {
     render() {
         return (

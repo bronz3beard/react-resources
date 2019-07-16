@@ -6,10 +6,10 @@ import React, { PureComponent } from "react";
 import "../Styles/form-filter.css";
 
 class DataFilter extends PureComponent {
-    handleShowForm = () => {
+    handleShowForm = () => { // func in App.js
       this.props.handleShowForm();
     };
-    changeHandler = event => {
+    changeHandler = event => { // func in App.js
       this.props.changeHandler(event);
     };
   render() {

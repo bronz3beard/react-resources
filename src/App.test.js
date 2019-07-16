@@ -1,9 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { configure, mount, shallow, render } from "enzyme";
+//import ReactDOM from 'react-dom';
+import { configure, shallow } from "enzyme"; //configure, mount, shallow, render
 import Adapter from "enzyme-adapter-react-16";
 
-import BoardContainer from './BoardContainer';
+//Components
+import App from './App';
 
 configure({ adapter: new Adapter() });
 

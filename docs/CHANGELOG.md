@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated gitignore
 - updated .env
 - updated .env.example
+- WIP not allowing duplicate links into database
+- moved css styles to respective componentns
 
 ###Removed
 - [Airtable](https://airtable.com/) no longer the database for this app

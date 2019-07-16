@@ -9,7 +9,7 @@ class ItemCard extends PureComponent {
     showUrl: false,
     linkPreview: "",
   };
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener("mouseenter", this.showUrl)
   }
   showUrl = (link) => {
@@ -29,7 +29,7 @@ class ItemCard extends PureComponent {
       });
     }
   }
-  handleShowEditForm = (topic, link, description, linkId) => {
+  handleShowEditForm = (topic, link, description, linkId) => { // func in App.js
     this.props.handleShowEditForm(topic, link, description, linkId);
   };
   render() {

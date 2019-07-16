@@ -3,9 +3,10 @@ import React, { PureComponent } from "react";
 //Components
 
 //Styles
+import "../Styles/modal.css";
 
 class Modal extends PureComponent {
-  handleModal = () => {
+  handleModal = () => { // func in App.js
         this.props.handleModal();
     };
   render() {

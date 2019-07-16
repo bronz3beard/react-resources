@@ -33,7 +33,7 @@ class App extends PureComponent {
           placeHolder: "Topic"
         },
         link: {
-          value: "", //https://testsafebrowsing.appspot.com/s/phishing.html
+          value: "",
           placeHolder: "Paste link"
         },
         description: {
@@ -48,11 +48,14 @@ class App extends PureComponent {
     };
   }
   componentDidMount() {
-    /*for (let item in allItems) {
+    this.hasDuplicates();
+    /* below will be useful for bulk upload eventually
+    for (let item in allItems) {
       const postId = itemsRef.push();
     }*/
     this.getFirebase();
   }
+  //handles fetching all db resources
   getFirebase() {
     this.setState({
       isLoading: true
@@ -86,9 +89,9 @@ class App extends PureComponent {
       isLoading: false
     });
   }
+  //handles submitting new resources
   handleSubmit = () => {
     const { data, formControls } = this.state;
-
     const itemsRef = firebase.database().ref("allTopics");
     const urlValid = regexTest.test(formControls.link.value);
     const item = {
@@ -105,6 +108,7 @@ class App extends PureComponent {
       alert("Please enter a valid url");
     }
   };
+  // handles updateing a resource
   handleUpdateFirebase = () => {
     const { formControls, linkId } = this.state;
     const itemsRef = firebase.database().ref("allTopics").child(linkId);
@@ -120,6 +124,7 @@ class App extends PureComponent {
         alert("Data could not be saved." + error);
       });
   };
+  // this will check if the malicious url check object is empty or not
   isEmpty = obj => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
@@ -128,12 +133,37 @@ class App extends PureComponent {
     }
     return false;
   };
+  // this checks for duplicates in the db
+  isDuplicate = url => {
+    const { data } = this.state;
+   
+      for (let link in data) {
+      if (data[link].field.link == url) {
+        return true; //isDuplicate
+      } else {
+        return false;
+      }
+    }
+  }
+  hasDuplicates = (url) => {
+    const { data } = this.state;
+    return data.some((url) => {
+      console.log("TCL: hasDuplicates -> data.indexOf(item.field.link) !== arr.lastIndexOf(item.field.link)", data.indexOf(url) !== data.lastIndexOf(url))
+      return data.indexOf(url) !== data.lastIndexOf(url);
+    });
+  }
   handleUrlCheck = (url, isEditForm, event) => {
     event.preventDefault();
+    
+    // test if submitted url is in the db already
+    const isDuplicate = this.isDuplicate(url);
+    console.log("TCL: handleUrlCheck -> isDuplicate", isDuplicate)
+
+    // this is the body send to Google Safe Browse to test if link is malicious
     const body = {
       client: {
         clientId: CLIENT_ID,
-        clientVersion: "0.1.0"
+        clientVersion: "0.2.0"
       },
       threatInfo: {
         threatTypes: [
@@ -147,8 +177,9 @@ class App extends PureComponent {
         threatEntryTypes: ["URL"],
         threatEntries: [{ url: url }]
       }
-    }; //threatEntries: urls.map(u => Object.assign({}, { url: u }))
+    }; // this can be used for bulk update chack later -> threatEntries: urls.map(u => Object.assign({}, { url: u }))
 
+    //create request to POST to google
     const check = new XMLHttpRequest();
     check.open(
       "POST",
@@ -164,17 +195,21 @@ class App extends PureComponent {
           if (objectCheck) {
             this.setState({
               isMalicious: true,
-              checkResponse: check.response,
+              checkResponse: check.response
             });
             alert("Link is Malicious");
           } else {
             this.setState({
-              isMalicious: false,
+              isMalicious: false
             });
-            if (isEditForm) {
-              this.handleUpdateFirebase(event);
+            if (isDuplicate) {
+              alert("This resource already exists!");
             } else {
-              this.handleSubmit(event);
+              if (isEditForm) {
+                this.handleUpdateFirebase(event);
+              } else {
+                this.handleSubmit(event);
+              }
             }
           }
         } else if (check.status === 0) {
@@ -187,6 +222,7 @@ class App extends PureComponent {
     };
     check.send(JSON.stringify(body));
   };
+  // handle form inputs
   changeHandler = event => {
     const { formControls } = this.state;
     const name = event.target.name;
@@ -202,6 +238,7 @@ class App extends PureComponent {
       }
     });
   };
+  //handle show new resource form and modal
   handleShowForm = () => {
     const { formControls, showForm, isOpen } = this.state;
     this.setState({
@@ -226,6 +263,7 @@ class App extends PureComponent {
       }
     });
   };
+  //handle show edit form and modal
   handleShowEditForm = (topic, link, description, linkId) => {
     const { formControls, showForm, isOpen } = this.state;
     this.setState({
@@ -252,6 +290,7 @@ class App extends PureComponent {
       }
     });
   };
+  //handle close modal
   handleModal = () => {
     document.body.style.overflow = "auto";
     this.setState({
@@ -259,7 +298,7 @@ class App extends PureComponent {
       isOpen: false,
       showForm: false,
       isEditForm: false,
-      isMalicious: false,
+      isMalicious: false
     });
   };
   //on page table filter handler
@@ -270,7 +309,16 @@ class App extends PureComponent {
     });
   };
   render() {
-    const { isLoading, error, isMalicious, checkResponse, isEditForm, data, showForm, formControls } = this.state;
+    const {
+      isLoading,
+      error,
+      isMalicious,
+      checkResponse,
+      isEditForm,
+      data,
+      showForm,
+      formControls
+    } = this.state;
 
     if (isLoading) {
       return <Preloader />;
@@ -282,14 +330,6 @@ class App extends PureComponent {
         </div>
       );
     }
-    /*const groupedItems = data.reduce((itemCollection, topic) => {
-      if (!itemCollection[topic]) {
-        itemCollection[topic] = [];
-      }
-      itemCollection[topic].push(topic.field.link);
-      return itemCollection;
-    }, {});*/
-
     const lowercasedFilter = formControls.query.value.toLowerCase();
     const filteredData =
       data &&

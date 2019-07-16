@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 
 //Styles
 import './App.css';
-import "./Styles/preloader.css";
-
 //Components
 import App from './App';
 
