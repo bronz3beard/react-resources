@@ -17,7 +17,7 @@ This project was bootstrapped with [create-react-app](https://github.com/faceboo
 - [Google Cloud](https://cloud.google.com/) for app and [Safe Browsing](https://developers.google.com/safe-browsing/v4/) api registration
 
 # Demo:
-* a demo for the current version of the [react-resources 0.2.0](https://react-app-database.firebaseapp.com/).
+* a demo for the current version of the [react-resources 0.2.0](https://react-app-database.firebaseapp.com/){:target="_blank"}
 
 # Collaborators:
 - @personA
