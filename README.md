@@ -1,4 +1,28 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Drogon drop kanban board
+
+### This document serves as a consolidation of some of the items that could be helpful to understand this project.
+
+This project was bootstrapped with [create-react-app](https://github.com/facebook/create-react-app).
+
+- __For__ Anyone who wants to organise online resources in a more usable way,
+- __who__ nneds to make better use of browser bookmarks and online knowledge repository,
+- __the__ react-resources app,
+- __is__ the app for you!.
+
+
+# Installation:
+- clone
+- npm install
+- [Google Firebase](https://firebase.google.com/) for database and hosting.
+- [Google Cloud](https://cloud.google.com/) for app and [Safe Browsing](https://developers.google.com/safe-browsing/v4/) api registration
+
+# Demo:
+* a demo for the current version of the [react-resources 0.2.0](https://react-app-database.firebaseapp.com/).
+
+# Collaborators:
+- @personA
+- @personB
+
 
 ## Available Scripts
 

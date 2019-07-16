@@ -1,33 +1,105 @@
-.App {
-  text-align: center;
+body {
+  font-family: 'PT Sans Narrow', sans-serif;
+  background: #413a3a;
+  height: auto;
+  width: 100%;
+  margin:  0;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.nav-menu {
+  height: 0;
+  width: 100%;
+  border: grey solid 1px;
+  color: white;  
+  text-transform: uppercase;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+nav h1 {
+  color: white;  
+  text-transform: uppercase;
+}
+.link-preview {
+  top: 0;
+  right: -5px;
+  position: fixed;
+  height: 50px;
+  width: auto;
+  padding: 1%;
+  color: white;
+  border-radius: 5px;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background: black;
+  box-shadow: -10px 10px 0px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.20);
+}
+.grid-container {
+  padding-top: 8%;
+  padding-bottom: 3%;
+  padding-left: 10px;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
+  background-color: transparent;
+  /*border: 3px solid red;*/
+}
+.grid-item {
+  width: 180px;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  text-align: center;
+  font-size: 20px;
+  border-radius: 5px;
+} .grid-item:hover {
+  color: white;
+  background-color: transparent;
+}
+.grid-item a {
+  color: black;
+  padding-top: 10%;
+  text-decoration: none;
+  word-wrap: break-word;
+} .grid-item a:hover {
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+div.description {
+  padding: 2%;
+  font-size: 14px;
+  word-wrap: break-word;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.back-totop footer  {
+  float: right;
+  bottom: 50px;
+  position: sticky;
+  display: block;
+  height: 50px;
+  width: auto;
+  text-align: center;
+  text-transform: uppercase;
+}
+button.back-totop {
+  float: right;
+  height: 50px;
+  width: auto;
+  bottom: 50px;
+  position: sticky;
+  display: block;
+  cursor: pointer;
+  text-align: center;
+  color: rgb(0, 0, 0); 
+  border: grey solid 1px; 
+  text-transform: uppercase;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: rgb(129, 129, 129);
+} button.back-totop:hover {
+  background-color: rgb(129, 129, 129);
+  color: white;
+}
+footer {
+  bottom: 40px;
+  height: 0;
+  width: 100%;
+  border: grey solid 1px;
+  color: rgb(0, 0, 0);  
+  text-transform: uppercase;
 }

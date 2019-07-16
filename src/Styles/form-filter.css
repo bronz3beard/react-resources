@@ -1,0 +1,62 @@
+body {
+    font-family: 'PT Sans Narrow', sans-serif;
+    text-align: center;
+}
+* {
+    box-sizing: border-box;
+}
+form.filterForm {
+    margin-top: -0.1px;
+}
+.filterForm {
+    left: -5px;
+    position: fixed;
+    height: 100px;
+    width: 400px;
+    padding-top: 1%;
+    padding-right: 25px;
+    border-radius: 5px;
+    align-items: center;
+    background: transparent;
+    box-shadow: -10px 10px 0px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.20);
+} .filterForm:hover {
+    background: rgba(0, 0, 0, 1)
+}
+input[type=text], select {
+    font-size: 14px;
+    font-family: 'PT Sans Narrow', sans-serif;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 1%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+input[type=button] {
+    font-family: 'PT Sans Narrow', sans-serif;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 1%;
+    padding: 5px;
+    resize: vertical;
+    color: white;
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+} input[type=button]:hover  {
+    border: white;
+}
+input[type=button].edit {
+    height: 20px;
+    margin-right: 6%;
+    padding-top: 1%;
+    padding-right: 5%;
+    color: black;
+    cursor: pointer;
+    border: white solid 1px;
+    font-family: 'PT Sans Narrow', sans-serif;
+  } input[type=button].edit:hover  {
+    color: white;
+    background-color: black;
+  }

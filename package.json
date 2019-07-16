@@ -1,8 +1,9 @@
 {
-  "name": "my-ref-materials",
-  "version": "0.1.0",
+  "name": "react-resources",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "firebase": "^6.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
