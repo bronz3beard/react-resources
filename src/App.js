@@ -135,9 +135,13 @@ class App extends PureComponent {
   };
   // this checks for duplicates in the db
   isDuplicate = url => {
-    const { data } = this.state;
+    const { data, formControls } = this.state;
     const links = Array.from(new Set(data.map(duplicate => duplicate.field.link)));
     const isDuplicate = links.indexOf(url) > -1;
+    const updateDescription = formControls.description.value;
+    if (!updateDescription) {
+      isDuplicate = false;
+    }
     if (isDuplicate) {
       return true; //isDuplicate
     } else {
@@ -193,14 +197,12 @@ class App extends PureComponent {
             this.setState({
               isMalicious: false
             });
-            if (isDuplicate) {
+            if (isDuplicate && isEditForm){
+              this.handleUpdateFirebase(event);
+            } if (isDuplicate) {
               alert("This resource already exists!");
             } else {
-              if (isEditForm) {
-                this.handleUpdateFirebase(event);
-              } else {
-                this.handleSubmit(event);
-              }
+              this.handleSubmit(event);
             }
           }
         } else if (check.status === 0) {

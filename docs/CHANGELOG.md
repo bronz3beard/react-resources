@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated .env.example
 - testing for duplicate links added these links will not be submitted to the db
 - moved css styles to respective componentns
+- WIP update logic to allow duplicate link for updating comments or topic
 
 ###Removed
 - [Airtable](https://airtable.com/) no longer the database for this app
