@@ -18,7 +18,7 @@ class App extends PureComponent {
     super(props);
     this.state = {
       data: [],
-      isLoading: false,
+      isLoading: true,
       error: false,
       showForm: false,
       isEditForm: false,
@@ -56,9 +56,6 @@ class App extends PureComponent {
   }
   //handles fetching all db resources
   getFirebase() {
-    this.setState({
-      isLoading: true
-    });
     const itemsRef = firebase.database().ref("allTopics");
     itemsRef.on("value", snapshot => {
       let items = snapshot.val();
@@ -74,7 +71,8 @@ class App extends PureComponent {
       }
       if (items && newState) {
         this.setState({
-          data: newState
+          data: newState,
+          isLoading: false,
         });
       } else {
         this.setState({
@@ -83,9 +81,6 @@ class App extends PureComponent {
           error: true
         });
       }
-    });
-    this.setState({
-      isLoading: false
     });
   }
   //handles submitting new resources
@@ -111,12 +106,18 @@ class App extends PureComponent {
   handleUpdateFirebase = () => {
     const { formControls, linkId } = this.state;
     const itemsRef = firebase.database().ref("allTopics").child(linkId);
+    this.setState({
+      isLoading: true,
+    });
     itemsRef.update({
         topic: formControls.topic.value,
         link: formControls.link.value,
         description: formControls.description.value,
         linkId: linkId
       }).then(() => {
+        this.setState({
+          isLoading: false,
+        });
         alert("Data saved successfully.");
         window.location.reload();
       }).catch(error => {
@@ -185,7 +186,7 @@ class App extends PureComponent {
           if (objectCheck) {
             this.setState({
               isMalicious: true,
-              checkResponse: check.response
+              checkResponse: check.response,
             });
             alert("Link is Malicious");
           } else {

@@ -2,14 +2,12 @@
     --width: 50px;
     --height: 50px;
 }
-
 #preload-wrapper {
     position: fixed;
     top: 5%;
     left: 88.5%;
     z-index: 1000;
 }
-
 #loader {
     display: block;
     position: relative;
@@ -24,7 +22,6 @@
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
-
     #loader:before {
         content: "";
         position: absolute;
@@ -38,7 +35,6 @@
         -webkit-animation: spin 3s linear infinite;
         animation: spin 3s linear infinite;
     }
-
     #loader:after {
         content: "";
         position: absolute;
@@ -66,7 +62,6 @@
         transform: rotate(360deg);
     }
 }
-
 @keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);
