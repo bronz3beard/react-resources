@@ -1,4 +1,4 @@
-## Drogon drop kanban board
+## React Resources App
 
 ### This document serves as a consolidation of some of the items that could be helpful to understand this project.
 
