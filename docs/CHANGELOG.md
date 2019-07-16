@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - updated gitignore
 - updated .env
 - updated .env.example
-- WIP not allowing duplicate links into database
+- testing for duplicate links added these links will not be submitted to the db
 - moved css styles to respective componentns
 
 ###Removed

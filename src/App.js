@@ -48,7 +48,6 @@ class App extends PureComponent {
     };
   }
   componentDidMount() {
-    this.hasDuplicates();
     /* below will be useful for bulk upload eventually
     for (let item in allItems) {
       const postId = itemsRef.push();
@@ -136,28 +135,19 @@ class App extends PureComponent {
   // this checks for duplicates in the db
   isDuplicate = url => {
     const { data } = this.state;
-   
-      for (let link in data) {
-      if (data[link].field.link == url) {
-        return true; //isDuplicate
-      } else {
-        return false;
-      }
+    const links = Array.from(new Set(data.map(duplicate => duplicate.field.link)));
+    const isDuplicate = links.indexOf(url) > -1;
+    if (isDuplicate) {
+      return true; //isDuplicate
+    } else {
+      return false;
     }
-  }
-  hasDuplicates = (url) => {
-    const { data } = this.state;
-    return data.some((url) => {
-      console.log("TCL: hasDuplicates -> data.indexOf(item.field.link) !== arr.lastIndexOf(item.field.link)", data.indexOf(url) !== data.lastIndexOf(url))
-      return data.indexOf(url) !== data.lastIndexOf(url);
-    });
   }
   handleUrlCheck = (url, isEditForm, event) => {
     event.preventDefault();
     
     // test if submitted url is in the db already
     const isDuplicate = this.isDuplicate(url);
-    console.log("TCL: handleUrlCheck -> isDuplicate", isDuplicate)
 
     // this is the body send to Google Safe Browse to test if link is malicious
     const body = {
