@@ -1,6 +1,5 @@
 {
   "name": "react-resources",
-  "homepage" : "https://github.com/bronz3beard/react-resources",
   "version": "0.2.0",
   "private": true,
   "dependencies": {
