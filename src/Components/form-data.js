@@ -2,6 +2,9 @@ import React, { PureComponent } from "react";
 
 //Components
 import Modal from "./modal";
+import MaliciousData from "./data-is-malicious";
+import DupilcateData from "./data-is-duplicate";
+import SuccessSubmitData from "./data-added-success";
 //Styles
 import "../Styles/form-data.css";
 
@@ -15,18 +18,44 @@ class DataForm extends PureComponent {
 
   render() {
     const {
-      topic,
       link,
+      topic,
+      itemAdded,
+      isEditForm,
       description,
       isMalicious,
+      itemUpdated,
+      isDuplicate,
       checkResponse,
-      isEditForm,
       handleModal
     } = this.props;
 
+    if (isMalicious) {
+      return (
+        <Modal handleModal={handleModal}>
+          <MaliciousData>
+            {checkResponse}
+          </MaliciousData>
+        </Modal>
+      );
+    }
+    if (isDuplicate) {
+      return (
+        <Modal handleModal={handleModal}>
+          <DupilcateData />
+        </Modal>
+      );
+    }
+    if (itemAdded || itemUpdated) {
+      return (
+        <Modal handleModal={handleModal}>
+          <SuccessSubmitData itemUpdated={itemUpdated} itemAdded={itemAdded} />
+        </Modal>
+      );
+
+    }
     return (
       <Modal handleModal={handleModal}>
-        {!isMalicious ? 
           <form
           className="add-data-form"
           onSubmit={(event) => this.handleUrlCheck(link, isEditForm, event)}
@@ -58,7 +87,7 @@ class DataForm extends PureComponent {
               className="description-input"
               name="description"
               placeholder="description"
-              maxLength="30"
+              maxLength="80"
               value={description}
               onChange={event => this.changeHandler(event)}
             />
@@ -66,7 +95,7 @@ class DataForm extends PureComponent {
           <span>
             <input type="submit" value="Post" />
           </span>
-        </form> : <div className="malicious-warning"><p>{checkResponse}</p></div>}
+        </form>
       </Modal>
     );
   }

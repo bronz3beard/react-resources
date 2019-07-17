@@ -18,15 +18,19 @@ class App extends PureComponent {
     super(props);
     this.state = {
       data: [],
-      isLoading: true,
-      error: false,
-      showForm: false,
-      isEditForm: false,
-      isOpen: false,
       linkId: "",
       editUrl: "",
-      isMalicious: false,
+      error: false,
+      isOpen: false,
+      isLoading: true,
+      showForm: false,
+      itemAdded: false,
+      isEditForm: false,
+      itemUpdated: false,
+      isDuplicate: false,
       checkResponse: "",
+      isMalicious: false,
+
       formControls: {
         topic: {
           value: "",
@@ -84,7 +88,7 @@ class App extends PureComponent {
     });
   }
   //handles submitting new resources
-  handleSubmit = () => {
+  handleSubmit = (isDuplicate) => {
     const { data, formControls } = this.state;
     const itemsRef = firebase.database().ref("allTopics");
     const urlValid = regexTest.test(formControls.link.value);
@@ -94,35 +98,59 @@ class App extends PureComponent {
       description: formControls.description.value,
       linkId: data.length + 1
     };
-    if (urlValid) {
+    if (urlValid && !isDuplicate) {
       itemsRef.push(item);
-      alert("Resource submitted!");
-      window.location.reload();
-    } else {
-      alert("Please enter a valid url");
+      //alert("Resource submitted!");
+      this.setState({
+        itemAdded: true,
+      });
+    } else if (!urlValid || isDuplicate) {
+      this.setState({
+        itemAdded: false,
+        isDuplicate,
+      });
     }
   };
   // handles updateing a resource
-  handleUpdateFirebase = () => {
+  handleUpdateFirebase = (isDuplicate, isEditForm) => {
     const { formControls, linkId } = this.state;
     const itemsRef = firebase.database().ref("allTopics").child(linkId);
-    this.setState({
-      isLoading: true,
-    });
-    itemsRef.update({
+    const urlValid = regexTest.test(formControls.link.value);
+    if (urlValid && !isDuplicate) {
+      itemsRef.update({
         topic: formControls.topic.value,
         link: formControls.link.value,
         description: formControls.description.value,
         linkId: linkId
       }).then(() => {
         this.setState({
-          isLoading: false,
+          itemUpdated: true,
         });
-        alert("Data saved successfully.");
-        window.location.reload();
+      }).catch(error => {
+        this.setState({
+          itemUpdated: false,
+        });
+        alert("Data could not be saved." + error);
+      });
+    } else if (!urlValid) {
+      this.setState({
+        itemUpdated: false,
+        isDuplicate,
+      });
+    } else if (isEditForm && isDuplicate) {
+      itemsRef.update({
+        topic: formControls.topic.value,
+        description: formControls.description.value,
+        linkId: linkId
+      }).then(() => {
+        this.setState({
+          itemUpdated: true,
+          isDuplicate,
+        });
       }).catch(error => {
         alert("Data could not be saved." + error);
       });
+    }
   };
   // this will check if the malicious url check object is empty or not
   isEmpty = obj => {
@@ -197,12 +225,10 @@ class App extends PureComponent {
             this.setState({
               isMalicious: false
             });
-            if (isDuplicate && isEditForm){
-              this.handleUpdateFirebase(event);
-            } if (isDuplicate) {
-              alert("This resource already exists!");
+            if (isEditForm){
+              this.handleUpdateFirebase(isDuplicate, isEditForm);
             } else {
-              this.handleSubmit(event);
+              this.handleSubmit(isDuplicate);
             }
           }
         } else if (check.status === 0) {
@@ -287,11 +313,14 @@ class App extends PureComponent {
   handleModal = () => {
     document.body.style.overflow = "auto";
     this.setState({
-      overflow: false,
       isOpen: false,
+      overflow: false,
       showForm: false,
+      itemAdded: false,
       isEditForm: false,
-      isMalicious: false
+      itemUpdated: false,
+      isDuplicate: false,
+      isMalicious: false,
     });
   };
   //on page table filter handler
@@ -303,13 +332,16 @@ class App extends PureComponent {
   };
   render() {
     const {
-      isLoading,
+      data,
       error,
+      showForm,
+      isLoading,
+      itemAdded,
+      isEditForm,
+      itemUpdated,
+      isDuplicate,
       isMalicious,
       checkResponse,
-      isEditForm,
-      data,
-      showForm,
       formControls
     } = this.state;
 
@@ -337,6 +369,7 @@ class App extends PureComponent {
 
     return (
       <Fragment>
+        <div className="body-overlay">
         <Nav />
         <TopicSlider data={filteredData} />
         <DataFilter
@@ -347,11 +380,14 @@ class App extends PureComponent {
         />
         {showForm ? (
           <DataForm
-            isMalicious={isMalicious}
-            checkResponse={checkResponse}
+            itemAdded={itemAdded}
             isEditForm={isEditForm}
-            topic={formControls.topic.value}
+            isMalicious={isMalicious}
+            itemUpdated={itemUpdated}
+            isDuplicate={isDuplicate}
+            checkResponse={checkResponse}
             link={formControls.link.value}
+            topic={formControls.topic.value}
             description={formControls.description.value}
             handleShowForm={this.handleShowForm}
             changeHandler={this.changeHandler}
@@ -365,6 +401,7 @@ class App extends PureComponent {
         />
         <ScrollButton />
         <footer />
+        </div>
       </Fragment>
     );
   }

@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - __Fixed__ for any bug fixes.
 - __Security__ in case of vulnerabilities.
 
+## [0.2.0] - 17-07-2019
+###Added
+- WIP duplicate handler component
+- WIP malicious link handler component
+- WIP item added to database handler component
+- WIP updated css throughout
+- new font 
+
 ## [0.2.0] - 16-07-2019
 ###Added
 - CHANGELOG.md

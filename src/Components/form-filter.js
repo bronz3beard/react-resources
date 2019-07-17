@@ -29,7 +29,7 @@ class DataFilter extends PureComponent {
           <input
             type="button"
             onClick={this.handleShowForm}
-            value="Add resource"
+            value="Add to the Cot"
           />
         </span>
       </form>

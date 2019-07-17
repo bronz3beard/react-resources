@@ -9,11 +9,11 @@ class TopicSlider extends PureComponent {
 
     const topics = Array.from(new Set(data.map(duplicate => duplicate.field.topic))).map((topics, key) => {
         return (
-            <span key={key} className="topic">{topics}</span>
+          <span key={key} className="topic">{topics}</span>
         );
     })
     return (
-        <p className="scroll-left">{topics}</p>
+      <p className="scroll-left">{topics}</p>
     );
   }
 }

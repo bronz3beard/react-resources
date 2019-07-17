@@ -43,18 +43,16 @@ class ItemCard extends PureComponent {
           {filteredData.map(link => {
             const id = link.fbId;
             return (
-              <span key={id} className="grid-item" onMouseEnter={() => this.showUrl(link.field.link)} onMouseLeave={this.hideUrl}>
-                <a href={link.field.link} target="_blank" rel="noopener noreferrer">
-                  <div className="link-topic">{link.field.topic}</div>
-                  <div className="description">{link.field.description}</div>
+              <div className="grid-item" key={id}>
+                <a href={link.field.link} onMouseEnter={() => this.showUrl(link.field.link)} onMouseLeave={this.hideUrl} target="_blank" rel="noopener noreferrer">
+                    <div className="link-topic">{link.field.topic}</div>
+                    <div className="description">{link.field.description}</div>
+
                 </a>
-                <input
-                  type="button"
-                  value="edit"
-                  className="edit"
-                  onClick={() => this.handleShowEditForm(link.field.topic, link.field.link, link.field.description, id)}
-                />
-              </span>
+                <div className="edit" onClick={() => this.handleShowEditForm(link.field.topic, link.field.link, link.field.description, id)}>
+                  edit
+                </div>
+              </div>
             );
           })}
         </div>

@@ -20,6 +20,22 @@ p.scroll-left span {
     color: white;
     padding-left: 10px;
 }
+/*.pacman {
+    z-index: 10;
+    width: 0px;
+    height: 0px;
+    margin-left: 30%;
+    position: fixed;
+    border-right: 30px solid transparent;
+    border-top: 30px solid red;
+    border-left: 30px solid red;
+    border-bottom: 30px solid red;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}*/
+
 @keyframes marquee {
     0%   { text-indent: 27.5em }
     100% { text-indent: -105em }

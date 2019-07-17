@@ -1,12 +1,14 @@
 import React, { PureComponent } from "react";
 
+//Style
+import "../Styles/nav.css";
+
 class Nav extends PureComponent {
   render() {
     return (
-      <nav>
-        <h1>Resources</h1>
-        <div className="nav-menu">&nbsp;</div>
-      </nav>
+      <div className="nav-menu">
+            <span className="header">Cot</span>
+      </div>
     );
   }
 }
