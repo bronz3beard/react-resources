@@ -1,4 +1,4 @@
-p.scroll-left {
+div.scroll-left {
     width: 600px;
     margin: 0 auto;
     overflow: hidden;
@@ -16,7 +16,7 @@ p.scroll-left {
 } .scroll-left:hover {
     animation-play-state: paused
 }
-p.scroll-left span {
+div.scroll-left span {
     color: white;
     padding-left: 10px;
 }

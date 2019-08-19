@@ -1,5 +1,5 @@
-import React, { PureComponent, Fragment } from "react";
-import firebase from "./Firebase/firebase";
+import React, { PureComponent } from "react";
+import Firebase from "./Firebase/firebase";
 
 //Components
 import Nav from "./Components/nav";
@@ -60,7 +60,7 @@ class App extends PureComponent {
   }
   //handles fetching all db resources
   getFirebase() {
-    const itemsRef = firebase.database().ref("allTopics");
+    const itemsRef = Firebase.database().ref("allTopics");
     itemsRef.on("value", snapshot => {
       let items = snapshot.val();
 
@@ -76,7 +76,7 @@ class App extends PureComponent {
       if (items && newState) {
         this.setState({
           data: newState,
-          isLoading: false,
+          isLoading: false
         });
       } else {
         this.setState({
@@ -88,9 +88,9 @@ class App extends PureComponent {
     });
   }
   //handles submitting new resources
-  handleSubmit = (isDuplicate) => {
+  handleSubmit = isDuplicate => {
     const { data, formControls } = this.state;
-    const itemsRef = firebase.database().ref("allTopics");
+    const itemsRef = Firebase.database().ref("allTopics");
     const urlValid = regexTest.test(formControls.link.value);
     const item = {
       topic: formControls.topic.value,
@@ -102,54 +102,60 @@ class App extends PureComponent {
       itemsRef.push(item);
       //alert("Resource submitted!");
       this.setState({
-        itemAdded: true,
+        itemAdded: true
       });
     } else if (!urlValid || isDuplicate) {
       this.setState({
         itemAdded: false,
-        isDuplicate,
+        isDuplicate
       });
     }
   };
   // handles updateing a resource
   handleUpdateFirebase = (isDuplicate, isEditForm) => {
     const { formControls, linkId } = this.state;
-    const itemsRef = firebase.database().ref("allTopics").child(linkId);
+    const itemsRef = Firebase.database().ref("allTopics").child(linkId);
     const urlValid = regexTest.test(formControls.link.value);
     if (urlValid && !isDuplicate) {
-      itemsRef.update({
-        topic: formControls.topic.value,
-        link: formControls.link.value,
-        description: formControls.description.value,
-        linkId: linkId
-      }).then(() => {
-        this.setState({
-          itemUpdated: true,
+      itemsRef
+        .update({
+          topic: formControls.topic.value,
+          link: formControls.link.value,
+          description: formControls.description.value,
+          linkId: linkId
+        })
+        .then(() => {
+          this.setState({
+            itemUpdated: true
+          });
+        })
+        .catch(error => {
+          this.setState({
+            itemUpdated: false
+          });
+          alert("Data could not be saved." + error);
         });
-      }).catch(error => {
-        this.setState({
-          itemUpdated: false,
-        });
-        alert("Data could not be saved." + error);
-      });
     } else if (!urlValid) {
       this.setState({
         itemUpdated: false,
-        isDuplicate,
+        isDuplicate
       });
     } else if (isEditForm && isDuplicate) {
-      itemsRef.update({
-        topic: formControls.topic.value,
-        description: formControls.description.value,
-        linkId: linkId
-      }).then(() => {
-        this.setState({
-          itemUpdated: true,
-          isDuplicate,
+      itemsRef
+        .update({
+          topic: formControls.topic.value,
+          description: formControls.description.value,
+          linkId: linkId
+        })
+        .then(() => {
+          this.setState({
+            itemUpdated: true,
+            isDuplicate
+          });
+        })
+        .catch(error => {
+          alert("Data could not be saved." + error);
         });
-      }).catch(error => {
-        alert("Data could not be saved." + error);
-      });
     }
   };
   // this will check if the malicious url check object is empty or not
@@ -164,8 +170,10 @@ class App extends PureComponent {
   // this checks for duplicates in the db
   isDuplicate = url => {
     const { data, formControls } = this.state;
-    const links = Array.from(new Set(data.map(duplicate => duplicate.field.link)));
-    const isDuplicate = links.indexOf(url) > -1;
+    const links = Array.from(
+      new Set(data.map(duplicate => duplicate.field.link))
+    );
+    let isDuplicate = links.indexOf(url) > -1;
     const updateDescription = formControls.description.value;
     if (!updateDescription) {
       isDuplicate = false;
@@ -175,10 +183,10 @@ class App extends PureComponent {
     } else {
       return false;
     }
-  }
+  };
   handleUrlCheck = (url, isEditForm, event) => {
     event.preventDefault();
-    
+
     // test if submitted url is in the db already
     const isDuplicate = this.isDuplicate(url);
 
@@ -218,14 +226,14 @@ class App extends PureComponent {
           if (objectCheck) {
             this.setState({
               isMalicious: true,
-              checkResponse: check.response,
+              checkResponse: check.response
             });
             alert("Link is Malicious");
           } else {
             this.setState({
               isMalicious: false
             });
-            if (isEditForm){
+            if (isEditForm) {
               this.handleUpdateFirebase(isDuplicate, isEditForm);
             } else {
               this.handleSubmit(isDuplicate);
@@ -320,7 +328,7 @@ class App extends PureComponent {
       isEditForm: false,
       itemUpdated: false,
       isDuplicate: false,
-      isMalicious: false,
+      isMalicious: false
     });
   };
   //on page table filter handler
@@ -365,11 +373,11 @@ class App extends PureComponent {
             !lowercasedFilter
           );
         }
+        return null;
       });
 
     return (
-      <Fragment>
-        <div className="body-overlay">
+      <div className="body-overlay">
         <Nav />
         <TopicSlider data={filteredData} />
         <DataFilter
@@ -401,8 +409,7 @@ class App extends PureComponent {
         />
         <ScrollButton />
         <footer />
-        </div>
-      </Fragment>
+      </div>
     );
   }
 }

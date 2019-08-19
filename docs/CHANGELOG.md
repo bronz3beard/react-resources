@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - __Fixed__ for any bug fixes.
 - __Security__ in case of vulnerabilities.
 
+## [0.2.0] - 19-08-2019
+###Added
+- production firebase sdk modules
+- updated firebase dependency
+- topic-slider items array randomised
+
+###Changed
+- topic-slider html elements
+
 ## [0.2.0] - 17-07-2019
 ###Added
 - WIP duplicate handler component
