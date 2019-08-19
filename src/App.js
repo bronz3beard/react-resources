@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import Firebase from "./Firebase/firebase";
+import firebase from "./Firebase/firebase";
 
 //Components
 import Nav from "./Components/nav";
@@ -60,7 +60,7 @@ class App extends PureComponent {
   }
   //handles fetching all db resources
   getFirebase() {
-    const itemsRef = Firebase.database().ref("allTopics");
+    const itemsRef = firebase.database().ref("allTopics");
     itemsRef.on("value", snapshot => {
       let items = snapshot.val();
 
@@ -90,7 +90,7 @@ class App extends PureComponent {
   //handles submitting new resources
   handleSubmit = isDuplicate => {
     const { data, formControls } = this.state;
-    const itemsRef = Firebase.database().ref("allTopics");
+    const itemsRef = firebase.database().ref("allTopics");
     const urlValid = regexTest.test(formControls.link.value);
     const item = {
       topic: formControls.topic.value,
@@ -114,7 +114,7 @@ class App extends PureComponent {
   // handles updateing a resource
   handleUpdateFirebase = (isDuplicate, isEditForm) => {
     const { formControls, linkId } = this.state;
-    const itemsRef = Firebase.database().ref("allTopics").child(linkId);
+    const itemsRef = firebase.database().ref("allTopics").child(linkId);
     const urlValid = regexTest.test(formControls.link.value);
     if (urlValid && !isDuplicate) {
       itemsRef
@@ -333,7 +333,7 @@ class App extends PureComponent {
   };
   //on page table filter handler
   tableSearchFilter = event => {
-    let query = event.target.value.substr(0, 100);
+    const query = event.target.value.substr(0, 100);
     this.setState({
       query: query
     });
@@ -375,11 +375,11 @@ class App extends PureComponent {
         }
         return null;
       });
-
+      
     return (
       <div className="body-overlay">
         <Nav />
-        <TopicSlider data={filteredData} />
+        <TopicSlider data={data} />
         <DataFilter
           query={formControls.query.value}
           placeHolder={formControls.query.placeHolder}

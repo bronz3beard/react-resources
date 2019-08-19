@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - production firebase sdk modules
 - updated firebase dependency
 - topic-slider items array randomised
+- fixed topic filter issue in description intput on data form
 
 ###Changed
 - topic-slider html elements
