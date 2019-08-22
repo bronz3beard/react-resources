@@ -9,6 +9,8 @@ import ScrollButton from "./Components/scroll-to-top";
 import DataForm from "./Components/form-data";
 import DataFilter from "./Components/form-filter";
 import ItemCard from "./Components/item-card";
+//
+import WindowWidth from "./Components/ReusableComponents/width-tracker";
 
 const API_KEY = process.env.REACT_APP_SAFE_BROWSE_API_KEY;
 const CLIENT_ID = process.env.REACT_APP_SAFE_BROWSE_CLIENT_ID;
@@ -114,7 +116,10 @@ class App extends PureComponent {
   // handles updateing a resource
   handleUpdateFirebase = (isDuplicate, isEditForm) => {
     const { formControls, linkId } = this.state;
-    const itemsRef = firebase.database().ref("allTopics").child(linkId);
+    const itemsRef = firebase
+      .database()
+      .ref("allTopics")
+      .child(linkId);
     const urlValid = regexTest.test(formControls.link.value);
     if (urlValid && !isDuplicate) {
       itemsRef
@@ -375,16 +380,21 @@ class App extends PureComponent {
         }
         return null;
       });
-      
+
     return (
       <div className="body-overlay">
         <Nav />
         <TopicSlider data={data} />
-        <DataFilter
-          query={formControls.query.value}
-          placeHolder={formControls.query.placeHolder}
-          handleShowForm={this.handleShowForm}
-          changeHandler={this.changeHandler}
+        <WindowWidth
+          render={width => (
+            <DataFilter
+              window={width}
+              query={formControls.query.value}
+              placeHolder={formControls.query.placeHolder}
+              handleShowForm={this.handleShowForm}
+              changeHandler={this.changeHandler}
+            />
+          )}
         />
         {showForm ? (
           <DataForm

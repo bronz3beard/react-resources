@@ -13,7 +13,7 @@ class DataFilter extends PureComponent {
       this.props.changeHandler(event);
     };
   render() {
-    const { query, placeHolder } = this.props;
+    const { query, placeHolder, window } = this.props;
     return (
       <form className="filterForm">
         <input

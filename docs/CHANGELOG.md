@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - __Fixed__ for any bug fixes.
 - __Security__ in case of vulnerabilities.
 
+
+## [0.2.1] - 22-08-2019
+###Added
+- added responsive layout for css grid now inline-grid, and columns adapt to screen size.
+- added reusable components folder and components to manage hiding and showing form filter when screen size width is less than x and an onscroll component.
+- added new icon
+
 ## [0.2.0] - 19-08-2019
 ###Added
 - production firebase sdk modules
