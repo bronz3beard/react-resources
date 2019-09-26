@@ -2,33 +2,27 @@ root {
   text-rendering: optimizeLegibility;
   font-family: 'PT Sans Narrow', sans-serif;
 }
-body {
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+html { 
+  height: 100%; 
+  overflow: auto;
+  scroll-behavior: smooth;
 }
-.body-overlay {
+body {
   top: 0;
   left: 0;
   right: 0;
   bottom:0;
-  opacity: 0;
-  z-index: 1;
+  margin: 0;
+  padding: 0;
   width: 100%;
-  height: 99.99%;
-  position: fixed;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  height: 100%;
+  position: absolute;
   animation-name: fadeIn;
   animation-duration: 1s;
   animation-iteration-count: 1;
   animation-fill-mode:forwards;
   animation-timing-function: ease-in-out;
-  background: radial-gradient(#40404b, #010147) rgba(34,34,40,0.94);
-  background: webkit-radial-gradient(#40404b, #010147) rgba(34,34,40,0.94);
-  background-image: radial-gradient(at center center, rgb(64, 64, 75), rgb(48, 48, 180));
+  background: rgb(44, 44, 167);
 }
 .link-preview {
   top: 0;

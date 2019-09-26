@@ -7,7 +7,7 @@ class Nav extends PureComponent {
   render() {
     return (
       <div className="nav-menu">
-            <span className="header">Cot</span>
+            <span className="header">Collection of Things</span>
       </div>
     );
   }

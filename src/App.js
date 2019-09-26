@@ -382,7 +382,7 @@ class App extends PureComponent {
       });
 
     return (
-      <div className="body-overlay">
+      <>
         <Nav />
         <TopicSlider data={data} />
         <WindowWidth
@@ -419,7 +419,7 @@ class App extends PureComponent {
         />
         <ScrollButton />
         <footer />
-      </div>
+      </>
     );
   }
 }

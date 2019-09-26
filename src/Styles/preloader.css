@@ -18,7 +18,7 @@
     margin: calc(var(--width) / 2) 0 0 calc(var(--height) / 2);
     border-radius: 50%;
     border: 3px solid transparent;
-    border-top-color: black;
+    border-top-color: rgb(255, 255, 255);
     -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
@@ -31,7 +31,7 @@
         bottom: 5px;
         border-radius: 50%;
         border: 3px solid transparent;
-        border-top-color: purple;
+        border-top-color: rgb(121, 36, 121);
         -webkit-animation: spin 3s linear infinite;
         animation: spin 3s linear infinite;
     }
@@ -44,7 +44,7 @@
         bottom: 15px;
         border-radius: 50%;
         border: 3px solid transparent;
-        border-top-color: grey;
+        border-top-color: rgb(201, 93, 22);
         -webkit-animation: spin 1.5s linear infinite;
         animation: spin 1.5s linear infinite;
     }
