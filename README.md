@@ -9,9 +9,6 @@ This project was bootstrapped with [create-react-app](https://github.com/faceboo
 - __the__ react-resources app,
 - __is__ the app for you!.
 
-# Side note:
-- anyone who has some cartography resources please add them!!
-
 # Installation:
 - clone
 - npm install
@@ -22,6 +19,7 @@ This project was bootstrapped with [create-react-app](https://github.com/faceboo
 - [Google Cloud](https://cloud.google.com/) for app and [Safe Browsing](https://developers.google.com/safe-browsing/v4/) api registration
 - *Optional [serve](https://www.npmjs.com/package/serve)
 # Demo:
+- anyone who has some cartography resources please add them!!
 * a demo for the current version of the [react-resources 0.2.0](https://react-app-database.firebaseapp.com/).
 
 # Collaborators:
