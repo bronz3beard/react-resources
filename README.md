@@ -20,7 +20,7 @@ This project was bootstrapped with [create-react-app](https://github.com/faceboo
 - *Optional [serve](https://www.npmjs.com/package/serve)
 # Demo:
 - anyone who has some cartography resources please add them!!
-* a demo for the current version of the [react-resources 0.2.0](https://react-app-database.firebaseapp.com/).
+* a demo for the current version of the [react-resources 0.2.3](https://react-app-database.firebaseapp.com/).
 
 # Collaborators:
 - @personA
