@@ -9,6 +9,8 @@ This project was bootstrapped with [create-react-app](https://github.com/faceboo
 - __the__ react-resources app,
 - __is__ the app for you!.
 
+# Side note:
+- anyone who has some cartography resources please add them!!
 
 # Installation:
 - clone
