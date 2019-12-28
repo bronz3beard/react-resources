@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 
 //Styles
-import "../Styles/topic-slider.css";
+import "../Styles/topics.css";
 
 class TopicSlider extends PureComponent {
     //The modern version of the Fisher–Yates shuffle
@@ -18,11 +18,19 @@ class TopicSlider extends PureComponent {
     const shuffleData = this.shuffle(data)
     const topics = Array.from(new Set(shuffleData.map(duplicate => duplicate.field.topic))).map((topics, key) => {
         return (
-          <span key={key} className="topic">{topics}</span>
+          <div className="topic-container">
+            <span key={key} className="topic-label-shape">
+              <div className="topic-label">
+                {topics}
+              </div>
+            </span>
+          </div>
         );
     })
     return (
-      <div className="scroll-left">{topics}</div>
+      <div className="topic-container">
+        {topics}
+      </div>
     );
   }
 }
