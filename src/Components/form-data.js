@@ -9,10 +9,12 @@ import SuccessSubmitData from "./data-added-success";
 import "../Styles/form-data.css";
 
 class DataForm extends PureComponent {
-  changeHandler = event => { // func in App.js
+  changeHandler = (event) => {
+    // func in App.js
     this.props.changeHandler(event);
   };
-  handleUrlCheck = (url, isEditForm, event) => { // func in App.js
+  handleUrlCheck = (url, isEditForm, event) => {
+    // func in App.js
     this.props.handleUrlCheck(url, isEditForm, event);
   };
 
@@ -27,15 +29,13 @@ class DataForm extends PureComponent {
       itemUpdated,
       isDuplicate,
       checkResponse,
-      handleModal
+      handleModal,
     } = this.props;
 
     if (isMalicious) {
       return (
         <Modal handleModal={handleModal}>
-          <MaliciousData>
-            {checkResponse}
-          </MaliciousData>
+          <MaliciousData>{checkResponse}</MaliciousData>
         </Modal>
       );
     }
@@ -52,11 +52,10 @@ class DataForm extends PureComponent {
           <SuccessSubmitData itemUpdated={itemUpdated} itemAdded={itemAdded} />
         </Modal>
       );
-
     }
     return (
       <Modal handleModal={handleModal}>
-          <form
+        <form
           className="add-data-form"
           onSubmit={(event) => this.handleUrlCheck(link, isEditForm, event)}
         >
@@ -67,7 +66,7 @@ class DataForm extends PureComponent {
               name="topic"
               placeholder="Topic"
               value={topic}
-              onChange={event => this.changeHandler(event)}
+              onChange={(event) => this.changeHandler(event)}
             />
           </span>
           <span>
@@ -77,7 +76,7 @@ class DataForm extends PureComponent {
               name="link"
               placeholder="Paste link"
               value={link}
-              onChange={event => this.changeHandler(event)}
+              onChange={(event) => this.changeHandler(event)}
             />
           </span>
           <span>
@@ -89,7 +88,7 @@ class DataForm extends PureComponent {
               placeholder="description"
               maxLength="80"
               value={description}
-              onChange={event => this.changeHandler(event)}
+              onChange={(event) => this.changeHandler(event)}
             />
           </span>
           <span>

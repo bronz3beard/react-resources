@@ -14,19 +14,32 @@ class TopicSlider extends PureComponent {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, topicClickHandler } = this.props;
 
     // const shuffleData = this.shuffle(data);
     const topics = Array.from(
-      new Set(data.map((duplicate) => duplicate.field.topic))
-    ).map((topics, key) => {
+      new Set(
+        data
+          .filter((item) => item.field.topic)
+          .map((duplicate) => duplicate.field.topic)
+      )
+    ).map((topic, key) => {
       return (
-        <span key={key} className="topic">
-          {topics}
-        </span>
+        <button
+          key={key}
+          id={topic}
+          className="topic-label"
+          onClick={topicClickHandler}
+        >
+          {topic}
+        </button>
       );
     });
-    return <div className="scroll-left">{topics}</div>;
+    return (
+      <div className="topic-container">
+        <div className="topic-label-shape">{topics}</div>
+      </div>
+    );
   }
 }
 

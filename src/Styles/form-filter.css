@@ -8,16 +8,16 @@ body {
 form.filterForm {
   margin-top: -0.1px;
 }
-.filterForm {
-  top: 20rem;
+form.filterForm {
+  top: 10.2rem;
   position: fixed;
   height: 120px;
   width: 100%;
   padding: 1% 25px 0 0;
   align-items: center;
   background: #fefefe;
-  box-shadow: -10px 10px 0px 0 rgba(0, 0, 0, 0.3),
-    0 6px 20px 0 rgba(0, 0, 0, 0.2);
+  /* box-shadow: -10px 10px 0px 0 rgba(0, 0, 0, 0.3),
+    0 6px 20px 0 rgba(0, 0, 0, 0.2); */
 }
 input[type="text"],
 select {
@@ -51,8 +51,8 @@ input[type="button"]:hover {
 }
 
 @media screen and (max-width: 40em) {
-  .filterForm {
-    top: 6rem;
+  form.filterForm {
+    top: 5.5rem;
     height: 100px;
     padding: 6% 25px 0 0;
   }

@@ -108,11 +108,8 @@ export const capitaliseString = (stringValue, replaceValue) =>
 // removes special characters on standard en-us keyboard config
 export const removeSpecialCharacters = (stringValue, replaceValue) =>
   replaceValue
-    ? stringValue.replace(
-        /[+,:;=?@#|'"‘’<>.^*%!-._\\\/`~\[\]\{\}]+/g,
-        replaceValue
-      )
-    : stringValue.replace(/[+,:;=?@#|'"‘’<>.^*%!-._\\\/`~\[\]\{\}]*/g, "");
+    ? stringValue.replace(/[+,:;=?@#|'"‘’<>.^*%!-._\\/`~[\]{}]+/g, replaceValue)
+    : stringValue.replace(/[+,:;=?@#|'"‘’<>.^*%!-._\\/`~[\]{}]*/g, "");
 
 // removes all numbers in a string
 export const removeNumbers = (stringValue, replaceValue) =>
@@ -124,11 +121,11 @@ export const removeNumbers = (stringValue, replaceValue) =>
 export const getOnlyNumbers = (stringValue, replaceValue) =>
   replaceValue
     ? stringValue.replace(
-        /[a-zA-Z$&+,:;=?@#|'"‘’<>.^*()%!-._\\\/`~\[\]\{\}]+/g,
+        /[a-zA-Z$&+,:;=?@#|'"‘’<>.^*()%!-._\\/`~[\]{}]+/g,
         replaceValue
       )
     : stringValue.replace(
-        /[a-zA-Z$&+,:;=?@#|'"‘’<>.^*()%!-._\\\/`~\[\]\{\}]*/g,
+        /[a-zA-Z$&+,:;=?@#|'"‘’<>.^*()%!-._\\/`~[\]{}]*/g,
         ""
       );
 
@@ -179,7 +176,7 @@ export const replaceWhiteSpace = (stringValue, replaceValue) =>
 // find and replace html element - WIP
 export const replaceHtmlElement = (stringValue, element, replaceValue) =>
   stringValue.replace(
-    `/<${element}(?:'[^']*'['']*|'[^']*'['']*|[^''>])+>([\w\d\s:,°.-]*)/g`,
+    `/<${element}(?:'[^']*'['']*|'[^']*'['']*|[^''>])+>([wds:,°.-]*)/g`,
     replaceValue
   );
 
@@ -246,7 +243,7 @@ export const getUniqueArrayObjects = (
 };
 
 export const getUniqueArrayValues = (value, index, self) => {
-  return self.indexOf(value) == index;
+  return self.indexOf(value) === index;
 };
 
 export const groupBy = (array, key) => {

@@ -7,7 +7,6 @@ import Preloader from "./Components/preloader";
 import DataForm from "./Components/form-data";
 import DataFilter from "./Components/form-filter";
 import ItemCard from "./Components/item-card";
-import WindowWidth from "./Components/ReusableComponents/width-tracker";
 
 const API_KEY = process.env.REACT_APP_SAFE_BROWSE_API_KEY;
 const CLIENT_ID = process.env.REACT_APP_SAFE_BROWSE_CLIENT_ID;
@@ -320,6 +319,22 @@ class App extends PureComponent {
     });
   };
 
+  topicClickHandler = (event) => {
+    event.preventDefault();
+    const { formControls } = this.state;
+    const value = event.target.id;
+
+    this.setState({
+      formControls: {
+        ...formControls,
+        query: {
+          ...formControls.query,
+          value,
+        },
+      },
+    });
+  };
+
   //handle show new resource form and modal
   handleShowForm = () => {
     const { formControls, showForm, isOpen } = this.state;
@@ -450,13 +465,17 @@ class App extends PureComponent {
     return (
       <>
         <Nav />
-        <TopicSlider data={topicSliderData} />
         <DataFilter
           query={formControls.query.value}
           placeHolder={formControls.query.placeHolder}
           handleShowForm={this.handleShowForm}
           changeHandler={this.changeHandler}
         />
+        <TopicSlider
+          data={topicSliderData}
+          topicClickHandler={this.topicClickHandler}
+        />
+        <hr />
         {showForm ? (
           <DataForm
             itemAdded={itemAdded}
@@ -485,4 +504,5 @@ class App extends PureComponent {
 
 export default App;
 
+// eslint-disable-next-line no-useless-escape
 const regexTest = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(:[0-9]+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
