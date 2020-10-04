@@ -4,28 +4,33 @@
 
 This project was bootstrapped with [create-react-app](https://github.com/facebook/create-react-app).
 
-- __For__ Anyone who wants to organise online resources in a more usable way,
-- __who__ needs to make better use of browser bookmarks and online knowledge repository,
-- __the__ react-resources app,
-- __is__ the app for you!.
+- **For** Anyone who wants to organise online resources in a more usable way,
+- **who** needs to make better use of browser bookmarks and online knowledge repository,
+- **the** react-resources app,
+- **is** the app for you!.
 
 # Installation:
+
 - clone
 - npm install
 
 # Dependencies
+
 - [Google Firebase](https://firebase.google.com/) for database and hosting.
 - Firebase API provides its own type definitions, so you don't need @types/firebase installed!
 - [Google Cloud](https://cloud.google.com/) for app and [Safe Browsing](https://developers.google.com/safe-browsing/v4/) api registration
-- *Optional [serve](https://www.npmjs.com/package/serve)
+- \*Optional [serve](https://www.npmjs.com/package/serve)
+
 # Demo:
+
 - anyone who has some cartography resources please add them!!
-* a demo for the current version of the [react-resources 0.2.3](https://react-app-database.firebaseapp.com/).
+
+* a demo for the current version of the [react-resources 0.3.0](https://react-app-database.firebaseapp.com/).
 
 # Collaborators:
+
 - @personA
 - @personB
-
 
 ## Available Scripts
 
