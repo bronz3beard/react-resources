@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 
 //Styles
-import "../Styles/topic-slider.css";
+import "../Styles/topics.css";
 
 class TopicSlider extends PureComponent {
   //The modern version of the Fisher–Yates shuffle

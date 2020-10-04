@@ -7,7 +7,6 @@ import Preloader from "./Components/preloader";
 import DataForm from "./Components/form-data";
 import DataFilter from "./Components/form-filter";
 import ItemCard from "./Components/item-card";
-//
 import WindowWidth from "./Components/ReusableComponents/width-tracker";
 
 const API_KEY = process.env.REACT_APP_SAFE_BROWSE_API_KEY;
@@ -51,13 +50,57 @@ class App extends PureComponent {
       },
     };
   }
+
   componentDidMount() {
     /* below will be useful for bulk upload eventually
     for (let item in allItems) {
       const postId = itemsRef.push();
     }*/
+    this.loadTwitterApi();
+    this.loadFacebookApi();
     this.getFirebase();
   }
+
+  loadFacebookApi = () => {
+    window.fbAsyncInit = () => {
+      window.FB.init({
+        appId: "782876488793995",
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: "v4.0",
+      });
+    };
+    ((d, s, id) => {
+      var js,
+        fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    })(document, "script", "facebook-jssdk");
+  };
+
+  loadTwitterApi = () => {
+    window.twttr = ((d, s, id) => {
+      var js,
+        fjs = d.getElementsByTagName(s)[0],
+        t = window.twttr || {};
+      if (d.getElementById(id)) return t;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "https://platform.twitter.com/widgets.js";
+      fjs.parentNode.insertBefore(js, fjs);
+      t._e = [];
+      t.ready = (f) => {
+        t._e.push(f);
+      };
+      return t;
+    })(document, "script", "twitter-wjs");
+  };
+
   //handles fetching all db resources
   getFirebase() {
     const itemsRef = firebase.database().ref("allTopics");
@@ -87,6 +130,7 @@ class App extends PureComponent {
       }
     });
   }
+
   //handles submitting new resources
   handleSubmit = (isDuplicate) => {
     const { data, formControls } = this.state;
@@ -111,6 +155,7 @@ class App extends PureComponent {
       });
     }
   };
+
   // handles updateing a resource
   handleUpdateFirebase = (isDuplicate, isEditForm) => {
     const { formControls, linkId } = this.state;
@@ -158,6 +203,7 @@ class App extends PureComponent {
         });
     }
   };
+
   // this will check if the malicious url check object is empty or not
   isEmpty = (obj) => {
     for (let key in obj) {
@@ -167,6 +213,7 @@ class App extends PureComponent {
     }
     return false;
   };
+
   // this checks for duplicates in the db
   isDuplicate = (url) => {
     const { data, formControls } = this.state;
@@ -184,6 +231,7 @@ class App extends PureComponent {
       return false;
     }
   };
+
   handleUrlCheck = (url, isEditForm, event) => {
     event.preventDefault();
 
@@ -220,6 +268,10 @@ class App extends PureComponent {
     check.setRequestHeader("Content-Type", "application/json");
     check.onload = () => {
       let testObject = JSON.parse(check.response);
+      console.log(
+        "TCL: check.onload -> testObject",
+        JSON.stringify(testObject)
+      ); /////////////////////////////
       let objectCheck = this.isEmpty(testObject);
       if (check.readyState === check.DONE) {
         if (check.status === 200) {
@@ -249,6 +301,7 @@ class App extends PureComponent {
     };
     check.send(JSON.stringify(body));
   };
+
   // handle form inputs
   changeHandler = (event) => {
     event.preventDefault();
@@ -266,6 +319,7 @@ class App extends PureComponent {
       },
     });
   };
+
   //handle show new resource form and modal
   handleShowForm = () => {
     const { formControls, showForm, isOpen } = this.state;
@@ -291,6 +345,7 @@ class App extends PureComponent {
       },
     });
   };
+
   //handle show edit form and modal
   handleShowEditForm = (event) => {
     const { formControls, showForm, isOpen } = this.state;
@@ -325,6 +380,7 @@ class App extends PureComponent {
       },
     });
   };
+
   //handle close modal
   handleModal = () => {
     document.body.style.overflow = "auto";
@@ -339,6 +395,7 @@ class App extends PureComponent {
       isMalicious: false,
     });
   };
+
   //on page table filter handler
   tableSearchFilter = (event) => {
     const query = event.target.value.substr(0, 100);
@@ -346,6 +403,7 @@ class App extends PureComponent {
       query: query,
     });
   };
+
   render() {
     const {
       data,
