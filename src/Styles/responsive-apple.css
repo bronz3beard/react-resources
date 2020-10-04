@@ -1,33 +1,23 @@
 /* ----------- iPhone 6, 6S, 7 and 8 ----------- */
 /* ----------- iPhone XS MAX ----------- */
 /* Portrait and Landscape */
-@media (max-width: 375px) 
-  and (max-width: 667px) 
-  and (max-height: 896px) 
-  and (-webkit-min-device-pixel-ratio: 2) { 
-  
+@media (max-width: 375px) and (max-width: 667px) and (max-height: 896px) and (-webkit-min-device-pixel-ratio: 2) {
 }
 
 /* ----------- iPad 1, 2, Mini and Air ----------- */
 
 /* Portrait and Landscape */
 @media (max-width: 768px) and (max-width: 1024px) {
-  
 }
 /* ----------- iPad Pro 10.5" ----------- */
 
 /* Portrait and Landscape */
-@media (min-width: 834px)
-  and (-webkit-min-device-pixel-ratio: 2) {
-   
+@media (min-width: 834px) and (-webkit-min-device-pixel-ratio: 2) {
 }
 /* ----------- iPad Pro 12.9" ----------- */
 @media (min-width: 1024px) and (max-width: 1024px) {
-  
 }
 
 /* ----------- Apple Watch ----------- */
-@media (min-width: 38mm) { 
-
+@media (min-width: 38mm) {
 }
-

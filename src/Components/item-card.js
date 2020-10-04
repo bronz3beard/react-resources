@@ -1,63 +1,64 @@
-import React, { PureComponent } from "react";
+import React, { useState, useRef } from "react";
+import { scrollToComponent } from "../utils/functions";
+import ScrollButton from "./scroll-to-top";
 
-//Components
+const ItemCard = (props) => {
+  const { filteredData, handleShowEditForm } = props;
+  const [showUrl, setShowUrl] = useState(false);
+  const [scrollTopClicked, setScrollTopClicked] = useState(false);
+  const [linkPreview, setLinkPreview] = useState("");
+  const scrollToRef = useRef(null);
 
-//Styles
+  const handleShowUrl = (event) => {
+    const link = event.target.parentElement.href;
 
-class ItemCard extends PureComponent {
-  state = {
-    showUrl: false,
-    linkPreview: "",
+    setShowUrl(true);
+    setLinkPreview(link);
   };
-  componentDidMount() {
-    document.addEventListener("mouseenter", this.showUrl)
-  }
-  showUrl = (link) => {
-    const hoverOverLink = document.getElementsByClassName("link-topic");
-    if (hoverOverLink) {
-      this.setState({
-        showUrl: true,
-        linkPreview: link,
-      });
-    }
-  }
-  hideUrl = () => {
-    const hoverOverLink = document.getElementsByClassName("link-topic");
-    if (hoverOverLink) {
-      this.setState({
-        showUrl: false,
-      });
-    }
-  }
-  handleShowEditForm = (topic, link, description, linkId) => { // func in App.js
-    this.props.handleShowEditForm(topic, link, description, linkId);
-  };
-  render() {
-    const { showUrl, linkPreview} = this.state;
-    const { filteredData  } = this.props;
-    return (
-      <div className="grid-container">
-          {showUrl ? <div className="link-preview">
-            {linkPreview}
-          </div> : null}
-          {filteredData.map(link => {
-            const id = link.fbId;
-            return (
-              <div className="grid-item" key={id}>
-                <a href={link.field.link} onMouseEnter={() => this.showUrl(link.field.link)} onMouseLeave={this.hideUrl} target="_blank" rel="noopener noreferrer">
-                    <div className="link-topic">{link.field.topic}</div>
-                    <div className="description">{link.field.description}</div>
 
-                </a>
-                <div className="edit" onClick={() => this.handleShowEditForm(link.field.topic, link.field.link, link.field.description, id)}>
-                  edit
-                </div>
-              </div>
-            );
-          })}
+  const handleHideUrl = () => {
+    setShowUrl(false);
+  };
+
+  const handleScrollTo = () => {
+    setScrollTopClicked(true);
+
+    if (scrollTopClicked) {
+      scrollToComponent(scrollToRef);
+    }
+  };
+
+  return (
+    <div className="grid-container">
+      <span ref={scrollToRef}></span>
+      {showUrl && <div className="link-preview">{linkPreview}</div>}
+      {filteredData.map((link) => (
+        <div key={link.fbId} className="grid-item">
+          <a
+            target="_blank"
+            href={link.field.link}
+            rel="noopener noreferrer"
+            onMouseEnter={handleShowUrl}
+            onMouseLeave={handleHideUrl}
+          >
+            <div className="link-topic">{link.field.topic}</div>
+            <div className="description">{link.field.description}</div>
+          </a>
+          <div
+            className="edit"
+            onClick={handleShowEditForm}
+            id={`${link.field.topic}#${link.field.link}#${link.field.description}#${link.fbId}`}
+          >
+            edit
+          </div>
         </div>
-    );
-  }
-}
+      ))}
+      <ScrollButton scrollToComponent={handleScrollTo} />
+      <footer>
+        Collection of Things© 2020 <span>Exempli.Gratia.</span> web design
+      </footer>
+    </div>
+  );
+};
 
 export default ItemCard;

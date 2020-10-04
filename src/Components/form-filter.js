@@ -1,40 +1,34 @@
-import React, { PureComponent } from "react";
-
-//Components
-
-//Styles
+import React from "react";
 import "../Styles/form-filter.css";
 
-class DataFilter extends PureComponent {
-    handleShowForm = () => { // func in App.js
-      this.props.handleShowForm();
-    };
-    changeHandler = event => { // func in App.js
-      this.props.changeHandler(event);
-    };
-  render() {
-    const { query, placeHolder, window } = this.props;
-    return (
-      <form className="filterForm">
+const DataFilter = (props) => {
+  const { query, placeHolder, changeHandler, handleShowForm } = props;
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <form className="filterForm" onSubmit={handleFormSubmit}>
+      <input
+        type="text"
+        name="query"
+        value={query}
+        id="grid-filter"
+        className="input-sm"
+        onChange={changeHandler}
+        placeholder={placeHolder}
+      />
+      <span>
         <input
-          className="input-sm"
-          id="grid-filter"
-          type="text"
-          name="query"
-          placeholder={placeHolder}
-          value={query}
-          onChange={event => this.changeHandler(event)}
+          type="button"
+          value="Add to the COT"
+          onClick={handleShowForm}
+          style={{ fontSize: `${1}em` }}
         />
-        <span>
-          <input
-            type="button"
-            onClick={this.handleShowForm}
-            value="Add to the Cot"
-          />
-        </span>
-      </form>
-    );
-  }
-}
+      </span>
+    </form>
+  );
+};
 
 export default DataFilter;

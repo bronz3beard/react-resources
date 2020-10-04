@@ -1,24 +1,25 @@
 div.scroll-left {
-    width: 600px;
-    margin: 0 auto;
-    overflow: hidden;
-    white-space: nowrap;
-    box-sizing: border-box;
-    cursor: none;
-    transform: translateX(1%);
-    -moz-transform: translateX(1%);
-    -webkit-transform: translateX(1%);
-    animation: marquee 25s linear infinite;
-    -moz-animation: marquee 25s linear infinite;
-    -webkit-animation: marquee 25s linear infinite;
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
-} .scroll-left:hover {
-    animation-play-state: paused
+  width: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  cursor: none;
+  transform: translateX(1%);
+  -moz-transform: translateX(1%);
+  -webkit-transform: translateX(1%);
+  animation: marquee 25s linear infinite;
+  -moz-animation: marquee 25s linear infinite;
+  -webkit-animation: marquee 25s linear infinite;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.scroll-left:hover {
+  animation-play-state: paused;
 }
 div.scroll-left span {
-    color: white;
-    padding-left: 10px;
+  color: white;
+  padding-left: 10px;
 }
 /*.pacman {
     z-index: 10;
@@ -36,11 +37,25 @@ div.scroll-left span {
     border-bottom-right-radius: 30px;
 }*/
 
+@media screen and (max-width: 40em) {
+  div.scroll-left {
+    display: none;
+  }
+}
+
 @keyframes marquee {
-    0%   { text-indent: 27.5em }
-    100% { text-indent: -105em }
+  0% {
+    text-indent: 27.5em;
+  }
+  100% {
+    text-indent: -105em;
+  }
 }
 @-webkit-keyframes marquee {
-    0%   { text-indent: 27.5em }
-    100% { text-indent: -105em }
+  0% {
+    text-indent: 27.5em;
+  }
+  100% {
+    text-indent: -105em;
+  }
 }

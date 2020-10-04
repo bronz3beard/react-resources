@@ -1,14 +1,17 @@
-import React, { PureComponent } from "react";
+import React from "react";
 
-class ScrollButton extends PureComponent {
-  scrollToTop = () => {
-    window.scrollTo(0, 0);
-  }
-  render() {
-    return (
-      <button title="Back to top" className="back-totop" onClick={this.scrollToTop}>Back to top</button>
-    );
-  }
-}
+const ScrollButton = (props) => {
+  const { scrollToComponent } = props;
+
+  return (
+    <button
+      title="Back to top"
+      className="back-totop"
+      onClick={scrollToComponent}
+    >
+      Back to top
+    </button>
+  );
+};
 
 export default ScrollButton;

@@ -1,11 +1,9 @@
 import React, { PureComponent } from "react";
 import firebase from "./Firebase/firebase";
-
-//Components
+import { sortArrayOfObjectsByField } from "./utils/functions";
 import Nav from "./Components/nav";
 import TopicSlider from "./Components/topic-slider";
 import Preloader from "./Components/preloader";
-import ScrollButton from "./Components/scroll-to-top";
 import DataForm from "./Components/form-data";
 import DataFilter from "./Components/form-filter";
 import ItemCard from "./Components/item-card";
@@ -36,21 +34,21 @@ class App extends PureComponent {
       formControls: {
         topic: {
           value: "",
-          placeHolder: "Topic"
+          placeHolder: "Topic",
         },
         link: {
           value: "",
-          placeHolder: "Paste link"
+          placeHolder: "Paste link",
         },
         description: {
           value: "",
-          placeHolder: "Short description"
+          placeHolder: "Short description",
         },
         query: {
           value: "",
-          placeHolder: "Topic filter"
-        }
-      }
+          placeHolder: "Topic filter",
+        },
+      },
     };
   }
   componentDidMount() {
@@ -63,7 +61,7 @@ class App extends PureComponent {
   //handles fetching all db resources
   getFirebase() {
     const itemsRef = firebase.database().ref("allTopics");
-    itemsRef.on("value", snapshot => {
+    itemsRef.on("value", (snapshot) => {
       let items = snapshot.val();
 
       let newState = [];
@@ -72,25 +70,25 @@ class App extends PureComponent {
         let fbId = item;
         newState.push({
           field,
-          fbId
+          fbId,
         });
       }
       if (items && newState) {
         this.setState({
           data: newState,
-          isLoading: false
+          isLoading: false,
         });
       } else {
         this.setState({
           data: null,
           loading: false,
-          error: true
+          error: true,
         });
       }
     });
   }
   //handles submitting new resources
-  handleSubmit = isDuplicate => {
+  handleSubmit = (isDuplicate) => {
     const { data, formControls } = this.state;
     const itemsRef = firebase.database().ref("allTopics");
     const urlValid = regexTest.test(formControls.link.value);
@@ -98,28 +96,25 @@ class App extends PureComponent {
       topic: formControls.topic.value,
       link: formControls.link.value,
       description: formControls.description.value,
-      linkId: data.length + 1
+      linkId: data.length + 1,
     };
     if (urlValid && !isDuplicate) {
       itemsRef.push(item);
       //alert("Resource submitted!");
       this.setState({
-        itemAdded: true
+        itemAdded: true,
       });
     } else if (!urlValid || isDuplicate) {
       this.setState({
         itemAdded: false,
-        isDuplicate
+        isDuplicate,
       });
     }
   };
   // handles updateing a resource
   handleUpdateFirebase = (isDuplicate, isEditForm) => {
     const { formControls, linkId } = this.state;
-    const itemsRef = firebase
-      .database()
-      .ref("allTopics")
-      .child(linkId);
+    const itemsRef = firebase.database().ref("allTopics").child(linkId);
     const urlValid = regexTest.test(formControls.link.value);
     if (urlValid && !isDuplicate) {
       itemsRef
@@ -127,44 +122,44 @@ class App extends PureComponent {
           topic: formControls.topic.value,
           link: formControls.link.value,
           description: formControls.description.value,
-          linkId: linkId
+          linkId: linkId,
         })
         .then(() => {
           this.setState({
-            itemUpdated: true
+            itemUpdated: true,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
-            itemUpdated: false
+            itemUpdated: false,
           });
           alert("Data could not be saved." + error);
         });
     } else if (!urlValid) {
       this.setState({
         itemUpdated: false,
-        isDuplicate
+        isDuplicate,
       });
     } else if (isEditForm && isDuplicate) {
       itemsRef
         .update({
           topic: formControls.topic.value,
           description: formControls.description.value,
-          linkId: linkId
+          linkId: linkId,
         })
         .then(() => {
           this.setState({
             itemUpdated: true,
-            isDuplicate
+            isDuplicate,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           alert("Data could not be saved." + error);
         });
     }
   };
   // this will check if the malicious url check object is empty or not
-  isEmpty = obj => {
+  isEmpty = (obj) => {
     for (let key in obj) {
       if (obj.hasOwnProperty(key)) {
         return true; //isMalicious
@@ -173,10 +168,10 @@ class App extends PureComponent {
     return false;
   };
   // this checks for duplicates in the db
-  isDuplicate = url => {
+  isDuplicate = (url) => {
     const { data, formControls } = this.state;
     const links = Array.from(
-      new Set(data.map(duplicate => duplicate.field.link))
+      new Set(data.map((duplicate) => duplicate.field.link))
     );
     let isDuplicate = links.indexOf(url) > -1;
     const updateDescription = formControls.description.value;
@@ -199,7 +194,7 @@ class App extends PureComponent {
     const body = {
       client: {
         clientId: CLIENT_ID,
-        clientVersion: "0.2.0"
+        clientVersion: "0.2.0",
       },
       threatInfo: {
         threatTypes: [
@@ -207,12 +202,12 @@ class App extends PureComponent {
           "SOCIAL_ENGINEERING",
           "UNWANTED_SOFTWARE",
           "POTENTIALLY_HARMFUL_APPLICATION",
-          "THREAT_TYPE_UNSPECIFIED"
+          "THREAT_TYPE_UNSPECIFIED",
         ],
         platformTypes: ["ANY_PLATFORM"],
         threatEntryTypes: ["URL"],
-        threatEntries: [{ url: url }]
-      }
+        threatEntries: [{ url: url }],
+      },
     }; // this can be used for bulk update chack later -> threatEntries: urls.map(u => Object.assign({}, { url: u }))
 
     //create request to POST to google
@@ -231,12 +226,12 @@ class App extends PureComponent {
           if (objectCheck) {
             this.setState({
               isMalicious: true,
-              checkResponse: check.response
+              checkResponse: check.response,
             });
             alert("Link is Malicious");
           } else {
             this.setState({
-              isMalicious: false
+              isMalicious: false,
             });
             if (isEditForm) {
               this.handleUpdateFirebase(isDuplicate, isEditForm);
@@ -249,13 +244,14 @@ class App extends PureComponent {
         }
       }
     };
-    check.onerror = error => {
+    check.onerror = (error) => {
       alert("Error Status: " + error.target.status);
     };
     check.send(JSON.stringify(body));
   };
   // handle form inputs
-  changeHandler = event => {
+  changeHandler = (event) => {
+    event.preventDefault();
     const { formControls } = this.state;
     const name = event.target.name;
     const value = event.target.value;
@@ -265,9 +261,9 @@ class App extends PureComponent {
         ...formControls,
         [name]: {
           ...formControls[name],
-          value
-        }
-      }
+          value,
+        },
+      },
     });
   };
   //handle show new resource form and modal
@@ -282,22 +278,29 @@ class App extends PureComponent {
         ...formControls,
         topic: {
           ...formControls.topic,
-          value: ""
+          value: "",
         },
         link: {
           ...formControls.link,
-          value: ""
+          value: "",
         },
         description: {
           ...formControls.description,
-          value: ""
-        }
-      }
+          value: "",
+        },
+      },
     });
   };
   //handle show edit form and modal
-  handleShowEditForm = (topic, link, description, linkId) => {
+  handleShowEditForm = (event) => {
     const { formControls, showForm, isOpen } = this.state;
+
+    const id = event.target.id;
+    const topic = id.split("#")[0];
+    const link = id.split("#")[1];
+    const description = id.split("#")[2];
+    const linkId = id.split("#")[3];
+
     this.setState({
       showForm: !showForm,
       isOpen: !isOpen,
@@ -309,17 +312,17 @@ class App extends PureComponent {
         ...formControls,
         topic: {
           ...formControls.topic,
-          value: topic
+          value: topic,
         },
         link: {
           ...formControls.link,
-          value: link
+          value: link,
         },
         description: {
           ...formControls.description,
-          value: description
-        }
-      }
+          value: description,
+        },
+      },
     });
   };
   //handle close modal
@@ -333,14 +336,14 @@ class App extends PureComponent {
       isEditForm: false,
       itemUpdated: false,
       isDuplicate: false,
-      isMalicious: false
+      isMalicious: false,
     });
   };
   //on page table filter handler
-  tableSearchFilter = event => {
+  tableSearchFilter = (event) => {
     const query = event.target.value.substr(0, 100);
     this.setState({
-      query: query
+      query: query,
     });
   };
   render() {
@@ -355,7 +358,7 @@ class App extends PureComponent {
       isDuplicate,
       isMalicious,
       checkResponse,
-      formControls
+      formControls,
     } = this.state;
 
     if (isLoading) {
@@ -364,14 +367,16 @@ class App extends PureComponent {
     if (error) {
       return (
         <div className="error">
-          <span>data has been fetched but it is empty.</span>
+          <span>
+            ERROR: cannot fetch data at this time, please try again later.
+          </span>
         </div>
       );
     }
     const lowercasedFilter = formControls.query.value.toLowerCase();
     const filteredData =
       data &&
-      data.filter(item => {
+      data.filter((item) => {
         if (item.field.topic) {
           return (
             item.field.topic.toLowerCase().indexOf(lowercasedFilter) !== -1 ||
@@ -381,20 +386,18 @@ class App extends PureComponent {
         return null;
       });
 
+    const sortData = sortArrayOfObjectsByField(filteredData, "topic", "asc");
+    const topicSliderData = sortArrayOfObjectsByField(data, "topic", "asc");
+
     return (
       <>
         <Nav />
-        <TopicSlider data={data} />
-        <WindowWidth
-          render={width => (
-            <DataFilter
-              window={width}
-              query={formControls.query.value}
-              placeHolder={formControls.query.placeHolder}
-              handleShowForm={this.handleShowForm}
-              changeHandler={this.changeHandler}
-            />
-          )}
+        <TopicSlider data={topicSliderData} />
+        <DataFilter
+          query={formControls.query.value}
+          placeHolder={formControls.query.placeHolder}
+          handleShowForm={this.handleShowForm}
+          changeHandler={this.changeHandler}
         />
         {showForm ? (
           <DataForm
@@ -414,11 +417,9 @@ class App extends PureComponent {
           />
         ) : null}
         <ItemCard
-          filteredData={filteredData}
+          filteredData={sortData}
           handleShowEditForm={this.handleShowEditForm}
         />
-        <ScrollButton />
-        <footer />
       </>
     );
   }

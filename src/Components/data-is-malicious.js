@@ -1,19 +1,16 @@
-import React, { PureComponent } from "react";
-
-//Style
+import React from "react";
 import "../Styles/nav.css";
 
-class MaliciousData extends PureComponent {
-  render() {
-      const { children } = this.props;
-    return (
-        <div className="malicious-warning">
-            <p>
-                {children}
-            </p>
-        </div>
-    );
-  }
-}
+const MaliciousData = (props) => {
+  const { children } = props;
+
+  return (
+    <div className="malicious-warning">
+      <p>
+        {children}
+      </p>
+    </div>
+  );
+};
 
 export default MaliciousData;

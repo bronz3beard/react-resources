@@ -1,53 +1,67 @@
 body {
-    font-family: 'PT Sans Narrow', sans-serif;
-    text-align: center;
+  font-family: "PT Sans Narrow", sans-serif;
+  text-align: center;
 }
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 form.filterForm {
-    margin-top: -0.1px;
+  margin-top: -0.1px;
 }
 .filterForm {
-    left: -5px;
-    position: fixed;
+  top: 20rem;
+  position: fixed;
+  height: 120px;
+  width: 100%;
+  padding: 1% 25px 0 0;
+  align-items: center;
+  background: #fefefe;
+  box-shadow: -10px 10px 0px 0 rgba(0, 0, 0, 0.3),
+    0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+input[type="text"],
+select {
+  font-size: 14px;
+  font-family: "PT Sans Narrow", sans-serif;
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 1%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+input[type="button"] {
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 1%;
+  padding: 5px;
+  resize: vertical;
+  color: black;
+  background-color: transparent;
+  border: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: "PT Sans Narrow", sans-serif;
+}
+input[type="button"]:hover {
+  color: black;
+  border-radius: 4px;
+  border: solid black 1px;
+}
+
+@media screen and (max-width: 40em) {
+  .filterForm {
+    top: 6rem;
     height: 100px;
-    width: 380px;
-    padding-top: 1%;
-    padding-right: 25px;
-    border-radius: 5px;
-    align-items: center;
-    background: transparent;
-    box-shadow: -10px 10px 0px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.20);
-} .filterForm:hover {
-    background: white;
-    box-shadow: none;
+    padding: 6% 25px 0 0;
+  }
 }
-input[type=text], select {
-    font-size: 14px;
-    font-family: 'PT Sans Narrow', sans-serif;
-    width: 90%;
-    margin-left: 5%;
-    margin-bottom: 1%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-}
-input[type=button] {
-    width: 90%;
-    margin-left: 5%;
-    margin-bottom: 1%;
-    padding: 5px;
-    resize: vertical;
-    color: black;
-    background-color: transparent;
-    border: transparent;
-    cursor: pointer;
-    border-radius: 4px;
-    font-family: 'PT Sans Narrow', sans-serif;
-} input[type=button]:hover  {
-    color: black;
-    border-radius: 4px;
-    border: solid black 1px;
+
+@media screen and (max-width: 1024px) {
+  .filterForm {
+    top: 15rem;
+    height: 120px;
+    padding: 4% 25px 0 0;
+  }
 }
