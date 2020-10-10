@@ -1,0 +1,72 @@
+@import "../../Styles/variables.scss";
+
+.signInButtons {
+  top: 0;
+  right: 0;
+  width: 30%;
+  position: relative;
+  text-align: center;
+  align-self: center;
+  align-content: center;
+
+  li {
+    padding: 0;
+    width: 20rem;
+    display: flex;
+    flex: 1 0 120px;
+    margin: 0 0.5rem 0 0.5rem;
+
+    input[type="button"] {
+      flex: 1;
+      font-size: 1em;
+      cursor: pointer;
+      color: #fefffe;
+      margin: 0.9em;
+      border-radius: 5px;
+      padding: 0 1rem 0 1rem;
+      border: 1px solid #00648f;
+      background-color: #00648f;
+      font-family: "Kulim Park", sans-serif;
+
+      &:hover {
+        color: #fefffe;
+        border-radius: 5px;
+        border: 1px solid #a0c7ff;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $sm) {
+  .signInButtons {
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+
+    li {
+      float: unset;
+      margin: 0rem 0.5rem 0 0.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: $md) {
+  .signInButtons {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+
+    li {
+      float: unset;
+      margin: 0rem 0.5rem 0 0.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: $lg) {
+  .signInButtons {
+    li {
+      margin: 5rem 0.5rem 0 0.5rem;
+    }
+  }
+}

@@ -1,12 +1,13 @@
 import React, { PureComponent } from "react";
 import firebase from "./Firebase/firebase";
-import { sortArrayOfObjectsByField } from "./utils/functions";
+import { sortArrayOfObjectsByField, scrollToTop } from "./utils/functions";
 import Nav from "./Components/nav";
 import TopicSlider from "./Components/topic-slider";
 import Preloader from "./Components/preloader";
 import DataForm from "./Components/form-data";
 import DataFilter from "./Components/form-filter";
 import ItemCard from "./Components/item-card";
+import Authenticate from "./Components/auth";
 
 const API_KEY = process.env.REACT_APP_SAFE_BROWSE_API_KEY;
 const CLIENT_ID = process.env.REACT_APP_SAFE_BROWSE_CLIENT_ID;
@@ -28,6 +29,9 @@ class App extends PureComponent {
       isDuplicate: false,
       checkResponse: "",
       isMalicious: false,
+      signIn: false,
+      uID: "",
+      dataUpdated: false,
 
       formControls: {
         topic: {
@@ -58,6 +62,7 @@ class App extends PureComponent {
     this.loadTwitterApi();
     this.loadFacebookApi();
     this.getFirebase();
+    this.handleAuthStateChange();
   }
 
   loadFacebookApi = () => {
@@ -129,6 +134,57 @@ class App extends PureComponent {
       }
     });
   }
+
+  handleAuthStateChange = () => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          signIn: true,
+          uID: user.uid,
+        });
+      } else {
+        this.setState({
+          signIn: false,
+        });
+        console.log("Not logged in");
+      }
+    });
+  };
+
+  handleDeleteItem = (event) => {
+    event.preventDefault();
+    const fileToDelete = event.target.id;
+    const { data, dataUpdated } = this.state;
+
+    this.setState({ dataUpdated: !dataUpdated });
+
+    // Create a reference to the file to delete
+    const storageRef = firebase.storage().refFromURL(fileToDelete);
+
+    // Delete the file from firebase storage
+    storageRef
+      .delete()
+      .then(() => {
+        scrollToTop();
+      })
+      .catch((error) => {
+        console.error("App -> handleDeleteItem -> error", error);
+      });
+    // remove file reference from firebase real time DB
+    const refDB = firebase.database().ref("allTopics");
+    const dataItem = refDB.child(data.fbId);
+    // const dataItems = boardItem.child("boardImageLocation");
+
+    const removeItem = data.field.boardImageLocation.filter(
+      (image) => image.imageUrl !== fileToDelete
+    );
+
+    const newItemArray = removeItem.map((item) => ({
+      ...item,
+    }));
+
+    dataItem.set({ ...newItemArray });
+  };
 
   //handles submitting new resources
   handleSubmit = (isDuplicate) => {
@@ -421,8 +477,10 @@ class App extends PureComponent {
 
   render() {
     const {
+      uID,
       data,
       error,
+      signIn,
       showForm,
       isLoading,
       itemAdded,
@@ -497,6 +555,19 @@ class App extends PureComponent {
           filteredData={sortData}
           handleShowEditForm={this.handleShowEditForm}
         />
+        <div style={{ margin: `${3}rem ${0} ${0} ${0}` }}>
+          <Authenticate
+            uid={uID}
+            data={data}
+            signIn={signIn}
+            isLoading={isLoading}
+            authButtonStyles={{
+              display: "flex",
+              top: `${-1.5}rem`,
+              position: "absolute",
+            }}
+          />
+        </div>
       </>
     );
   }
