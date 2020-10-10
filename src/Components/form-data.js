@@ -22,6 +22,7 @@ class DataForm extends PureComponent {
     const {
       link,
       topic,
+      showForm,
       itemAdded,
       isEditForm,
       description,
@@ -34,27 +35,47 @@ class DataForm extends PureComponent {
 
     if (isMalicious) {
       return (
-        <Modal handleModal={handleModal}>
+        <Modal
+          backgroundColor="white"
+          hideBodyOverflowY={true}
+          handleModal={handleModal}
+          showModal={isMalicious}
+        >
           <MaliciousData>{checkResponse}</MaliciousData>
         </Modal>
       );
     }
     if (isDuplicate) {
       return (
-        <Modal handleModal={handleModal}>
+        <Modal
+          backgroundColor="white"
+          hideBodyOverflowY={true}
+          handleModal={handleModal}
+          showModal={isDuplicate}
+        >
           <DupilcateData />
         </Modal>
       );
     }
     if (itemAdded || itemUpdated) {
       return (
-        <Modal handleModal={handleModal}>
+        <Modal
+          backgroundColor="white"
+          hideBodyOverflowY={true}
+          handleModal={handleModal}
+          showModal={itemUpdated}
+        >
           <SuccessSubmitData itemUpdated={itemUpdated} itemAdded={itemAdded} />
         </Modal>
       );
     }
     return (
-      <Modal handleModal={handleModal}>
+      <Modal
+        backgroundColor="white"
+        hideBodyOverflowY={true}
+        handleModal={handleModal}
+        showModal={showForm}
+      >
         <form
           className="add-data-form"
           onSubmit={(event) => this.handleUrlCheck(link, isEditForm, event)}

@@ -1,11 +1,9 @@
 @import "../../Styles/variables.scss";
 
 .signInFormContainer {
-  width: 30rem;
-  height: 10rem;
+  top: 5rem;
   margin: 0;
-  top: -40%;
-  z-index: 10000;
+  z-index: 1010;
   position: absolute;
 
   .signInForm {

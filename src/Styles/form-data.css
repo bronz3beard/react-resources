@@ -13,19 +13,22 @@ body {
     0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 form.add-data-form {
-  font-size: 14px;
-  text-align: left;
-  position: relative;
-  z-index: 9;
+  top: 10rem;
+  left: 50%;
+  width: 40%;
+  color: white;
+  z-index: 1002;
   margin-top: 5%;
   padding-top: 1%;
+  font-size: 14px;
+  text-align: left;
+  position: absolute;
+  border-radius: 5px;
   display: inline-block;
-  border-radius: 2px;
+  transform: translate(-50%);
   box-shadow: -10px 10px 0px 0 rgba(0, 0, 0, 0.3),
     0 6px 20px 0 rgba(0, 0, 0, 0.2);
-  color: white;
   background: linear-gradient(360deg, black 0.5%, 50%, #aa2211);
-  width: 20%;
 }
 .contact p,
 h4 {
@@ -94,7 +97,8 @@ input[type="submit"]:hover {
 
 @media screen and (max-width: 40em) {
   form.add-data-form {
-    width: auto;
+    top: 15em;
+    width: 20rem;
     padding: 1rem 0 0 0;
     margin: 1rem 0.2rem 0 0.2rem;
   }

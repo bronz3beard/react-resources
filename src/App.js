@@ -32,6 +32,8 @@ class App extends PureComponent {
       signIn: false,
       uID: "",
       dataUpdated: false,
+      showFilters: false,
+      showMyData: false,
 
       formControls: {
         topic: {
@@ -115,6 +117,7 @@ class App extends PureComponent {
       for (let item in items) {
         let field = items[item];
         let fbId = item;
+
         newState.push({
           field,
           fbId,
@@ -251,12 +254,21 @@ class App extends PureComponent {
           this.setState({
             itemUpdated: true,
             isDuplicate,
+            showForm: false,
           });
         })
         .catch((error) => {
           alert("Data could not be saved." + error);
         });
     }
+  };
+
+  handleAuthLogOut = () => {
+    firebase.auth().signOut();
+    this.setState({
+      signIn: false,
+    });
+    console.log("you logged out!");
   };
 
   // this will check if the malicious url check object is empty or not
@@ -426,6 +438,7 @@ class App extends PureComponent {
     const link = id.split("#")[1];
     const description = id.split("#")[2];
     const linkId = id.split("#")[3];
+    console.log("App -> handleShowEditForm -> linkId", linkId);
 
     this.setState({
       showForm: !showForm,
@@ -454,7 +467,7 @@ class App extends PureComponent {
 
   //handle close modal
   handleModal = () => {
-    document.body.style.overflow = "auto";
+    // document.body.style.overflow = "auto";
     this.setState({
       isOpen: false,
       overflow: false,
@@ -470,8 +483,25 @@ class App extends PureComponent {
   //on page table filter handler
   tableSearchFilter = (event) => {
     const query = event.target.value.substr(0, 100);
+
     this.setState({
       query: query,
+    });
+  };
+
+  handleShowFilters = () => {
+    const { showFilters } = this.state;
+
+    this.setState({
+      showFilters: !showFilters,
+    });
+  };
+
+  handleShowMyData = () => {
+    const { showMyData } = this.state;
+
+    this.setState({
+      showMyData: !showMyData,
     });
   };
 
@@ -484,7 +514,9 @@ class App extends PureComponent {
       showForm,
       isLoading,
       itemAdded,
+      showMyData,
       isEditForm,
+      showFilters,
       itemUpdated,
       isDuplicate,
       isMalicious,
@@ -504,10 +536,14 @@ class App extends PureComponent {
         </div>
       );
     }
+    const myData =
+      signIn && showMyData ? data.filter((item) => item.fbId === uID) : data;
+
     const lowercasedFilter = formControls.query.value.toLowerCase();
     const filteredData =
-      data &&
-      data.filter((item) => {
+      myData &&
+      myData.length > 0 &&
+      myData.filter((item) => {
         if (item.field.topic) {
           return (
             item.field.topic.toLowerCase().indexOf(lowercasedFilter) !== -1 ||
@@ -517,25 +553,37 @@ class App extends PureComponent {
         return null;
       });
 
-    const sortData = sortArrayOfObjectsByField(filteredData, "topic", "asc");
+    const sortData =
+      filteredData &&
+      filteredData.length > 0 &&
+      sortArrayOfObjectsByField(filteredData, "topic", "asc");
+
     const topicSliderData = sortArrayOfObjectsByField(data, "topic", "asc");
 
     return (
       <>
         <Nav />
         <DataFilter
+          signIn={signIn}
+          showMyData={showMyData}
+          showFilters={showFilters}
           query={formControls.query.value}
-          placeHolder={formControls.query.placeHolder}
-          handleShowForm={this.handleShowForm}
           changeHandler={this.changeHandler}
+          handleShowForm={this.handleShowForm}
+          handleShowMyData={this.handleShowMyData}
+          handleShowFilters={this.handleShowFilters}
+          placeHolder={formControls.query.placeHolder}
         />
-        <TopicSlider
-          data={topicSliderData}
-          topicClickHandler={this.topicClickHandler}
-        />
+        {showFilters && (
+          <TopicSlider
+            data={topicSliderData}
+            topicClickHandler={this.topicClickHandler}
+          />
+        )}
         <hr />
         {showForm ? (
           <DataForm
+            showForm={showForm}
             itemAdded={itemAdded}
             isEditForm={isEditForm}
             isMalicious={isMalicious}
@@ -552,6 +600,7 @@ class App extends PureComponent {
           />
         ) : null}
         <ItemCard
+          uid={uID}
           filteredData={sortData}
           handleShowEditForm={this.handleShowEditForm}
         />
@@ -561,9 +610,10 @@ class App extends PureComponent {
             data={data}
             signIn={signIn}
             isLoading={isLoading}
+            handleAuthLogOut={this.handleAuthLogOut}
             authButtonStyles={{
               display: "flex",
-              top: `${-1.5}rem`,
+              top: `${1.5}rem`,
               position: "absolute",
             }}
           />

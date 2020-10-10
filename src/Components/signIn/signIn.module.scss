@@ -2,7 +2,7 @@
 
 .signInButtons {
   top: 0;
-  right: 0;
+  left: .5rem;
   width: 30%;
   position: relative;
   text-align: center;
@@ -21,7 +21,7 @@
       font-size: 1em;
       cursor: pointer;
       color: #fefffe;
-      margin: 0.9em;
+      // margin: 0.9em;
       border-radius: 5px;
       padding: 0 1rem 0 1rem;
       border: 1px solid #00648f;
@@ -63,10 +63,3 @@
   }
 }
 
-@media screen and (min-width: $lg) {
-  .signInButtons {
-    li {
-      margin: 5rem 0.5rem 0 0.5rem;
-    }
-  }
-}

@@ -9,9 +9,9 @@ form.filterForm {
   margin-top: -0.1px;
 }
 form.filterForm {
-  top: 10.2rem;
+  top: 4.5rem;
   position: fixed;
-  height: 120px;
+  height: 140px;
   width: 100%;
   padding: 1% 25px 0 0;
   align-items: center;
@@ -49,12 +49,47 @@ input[type="button"]:hover {
   border-radius: 4px;
   border: solid black 1px;
 }
+  .filter-options {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .filter-options .filter-buttons {
+    -webkit-box-flex: 1 1 auto;
+    -moz-box-flex:  1 1 auto;
+    -webkit-flex:  1 1 auto;
+    -ms-flex:  1 1 auto;
+    flex:  1 1 auto;
+  }
 
 @media screen and (max-width: 40em) {
   form.filterForm {
     top: 5.5rem;
-    height: 100px;
+    height: 140px;
     padding: 6% 25px 0 0;
+  }
+
+  .topics {
+    display: none;
+  }
+
+  .filter-options {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+  }
+
+  .filter-options .filter-buttons {
+    -webkit-box-flex: 1 1 auto;
+    -moz-box-flex:  1 1 auto;
+    -webkit-flex:  1 1 auto;
+    -ms-flex:  1 1 auto;
+    flex:  1 1 auto;
   }
 }
 

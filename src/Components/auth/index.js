@@ -23,7 +23,14 @@ const Authenticate = (props) => {
     },
   });
   const { email, userName, password } = formInputValue;
-  const { signIn, uid, data, isLoading, authButtonStyles } = props;
+  const {
+    signIn,
+    uid,
+    data,
+    isLoading,
+    authButtonStyles,
+    handleAuthLogOut,
+  } = props;
 
   const handleFirebaseAuth = (event) => {
     event.preventDefault();
@@ -125,11 +132,6 @@ const Authenticate = (props) => {
     setSignUp(value === "Sign Up" ? true : false);
   };
 
-  const handleAuthLogOut = () => {
-    firebase.auth().signOut();
-    console.log("you logged out!");
-  };
-
   const formInputChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -214,7 +216,7 @@ const Authenticate = (props) => {
                       !signUp ? handleFirebaseAuth : handleFirebaseAuthSignUp
                     }
                   />
-                  <input
+                  {/* <input
                     type="submit"
                     value={
                       !signUp
@@ -228,7 +230,7 @@ const Authenticate = (props) => {
                         : { backgroundColor: "#333333" }
                     }
                     onClick={handleFirebaseAuth}
-                  />
+                  /> */}
                   <input
                     type="submit"
                     value={

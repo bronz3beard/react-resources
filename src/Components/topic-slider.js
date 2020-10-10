@@ -37,7 +37,12 @@ class TopicSlider extends PureComponent {
     });
     return (
       <div className="topic-container">
-        <div className="topic-label-shape">{topics}</div>
+        <div className="topic-label-shape">
+          <button id="" className="topic-label" onClick={topicClickHandler}>
+            All
+          </button>
+          {topics}
+        </div>
       </div>
     );
   }

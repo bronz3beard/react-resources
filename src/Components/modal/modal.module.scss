@@ -1,34 +1,32 @@
 .modalOverlay {
   top: 0;
+  right: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9001;
-  color: white;
+  bottom: 0;
+  z-index: 1001;
   position: fixed;
-  overflow-y: hidden;
-  animation: fadein 1s ease;
-  padding-right: 15px; /* Avoid width reflow */
-  background-color: rgba(255, 255, 255, 0.99);
+  cursor: pointer;
+  animation: fadein 2s ease;
 
-  .modalBody {
-    font-size: 100%;
-    min-height: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    vertical-align: baseline;
-    align-content: center;
 
-    .close {
-      float: right;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 20px;
-      border-radius: 5px;
-      z-index: 1500;
-      color: #000000;
-    }
+  .close {
+    top: 0;
+    right: 0;
+    padding: 2rem 2rem 0 0;
+    font-size: 2em;
+    color: #000000;
+    position: absolute;
+    transition: all 0.25s ease-in-out;
   }
+}
+
+.modalBody {
+  height: 100%;
+  display: flex;
+  font-size: 100%;
+  min-height: 100%;
+  align-content: center;
+  justify-content: center;
 }
 
 @keyframes fadein {
@@ -88,37 +86,3 @@
     opacity: 1;
   }
 }
-
-// .modalOverlay {
-//     top: 0;
-//     left: 0;
-//     width: 100vw;
-//     height: 100vh;
-//     color: white;
-//     z-index: 9001;
-//     position: fixed;
-//     overflow-y: hidden;
-//     padding-right: 15px; /* Avoid width reflow */
-//     background-color: rgba(0, 0, 0, 0.99);
-//     animation: fadein 2s ease;
-
-//     .modalBody {
-//       height: 100%;
-//       display: flex;
-//       font-size: 100%;
-//       cursor: pointer;
-//       min-height: 100%;
-//       align-content: center;
-//       justify-content: center;
-//       vertical-align: baseline;
-
-//       .close {
-//         float: right;
-//         font-size: 40px;
-//         cursor: pointer;
-//         padding: 20px;
-//         border-radius: 5px;
-//         z-index: 1500;
-//       }
-//     }
-//   }

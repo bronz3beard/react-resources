@@ -3,7 +3,7 @@ import { scrollToComponent } from "../utils/functions";
 import ScrollButton from "./scroll-to-top";
 
 const ItemCard = (props) => {
-  const { filteredData, handleShowEditForm } = props;
+  const { uid, filteredData, handleShowEditForm } = props;
   const [showUrl, setShowUrl] = useState(false);
   const [scrollTopClicked, setScrollTopClicked] = useState(false);
   const [linkPreview, setLinkPreview] = useState("");
@@ -47,7 +47,7 @@ const ItemCard = (props) => {
           <div
             className="edit"
             onClick={handleShowEditForm}
-            id={`${link.field.topic}#${link.field.link}#${link.field.description}#${link.fbId}`}
+            id={`${link.field.topic}#${link.field.link}#${link.field.description}#${uid}`}
           >
             edit
           </div>

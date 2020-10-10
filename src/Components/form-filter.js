@@ -2,7 +2,17 @@ import React from "react";
 import "../Styles/form-filter.css";
 
 const DataFilter = (props) => {
-  const { query, placeHolder, changeHandler, handleShowForm } = props;
+  const {
+    query,
+    signIn,
+    showMyData,
+    showFilters,
+    placeHolder,
+    changeHandler,
+    handleShowForm,
+    handleShowMyData,
+    handleShowFilters,
+  } = props;
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -19,14 +29,31 @@ const DataFilter = (props) => {
         onChange={changeHandler}
         placeholder={placeHolder}
       />
-      <span>
+      <div className="filter-options">
         <input
           type="button"
           value="Add to the COT"
           onClick={handleShowForm}
+          className="filter-buttons"
           style={{ fontSize: `${1}em` }}
         />
-      </span>
+        <input
+          type="button"
+          value={!showFilters ? "Show Topic Filters" : "Hide Topics"}
+          onClick={handleShowFilters}
+          className="filter-buttons topics"
+          style={{ fontSize: `${1}em` }}
+        />
+        {signIn && (
+          <input
+            type="button"
+            value={!showMyData ? "Show My Links" : "Show All links"}
+            onClick={handleShowMyData}
+            className="filter-buttons"
+            style={{ fontSize: `${1}em` }}
+          />
+        )}
+      </div>
     </form>
   );
 };
