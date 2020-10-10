@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Fixed** for any bug fixes.
 - **Security** in case of vulnerabilities.
 
+## [0.3.1] - 10-10-2020
+
+###Added
+
+- Sign in with email or Google account for own personalised collection of things
+
+###Changed
+
+- Some styles updated
+
 ## [0.3.0] - 04-09-2020
 
 ###Added

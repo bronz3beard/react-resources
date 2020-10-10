@@ -25,7 +25,7 @@ This project was bootstrapped with [create-react-app](https://github.com/faceboo
 
 - anyone who has some cartography resources please add them!!
 
-* a demo for the current version of the [react-resources 0.3.0](https://react-app-database.firebaseapp.com/).
+* a demo for the current version of the [react-resources 0.3.1](https://react-app-database.firebaseapp.com/).
 
 # Collaborators:
 
